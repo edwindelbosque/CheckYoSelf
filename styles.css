@@ -2,7 +2,7 @@
   --aside-border: #3B6577;
   --background-blue: #1F1F3D;
   --background-card-area: #F3F6F7;
-  --background-card: #F4FDFF;
+  --background-card: #F9FDFF;
   --background-green: #587A8A;
   --card-border: #C7D3D8;
   --card-text: #3C6577;
@@ -21,6 +21,12 @@
   margin: 0;
   padding: 0;
 }
+
+/* *, 
+*:before, 
+*:after {
+  box-sizing:  border-box;
+}  */
 
 body {
 	background-color: var(--background-green);
@@ -81,7 +87,7 @@ nav img {
 
 nav input {
 	width: 100%;
-	font-size: 16px;
+	font-size: 20px;
 	padding-left: 10px;
 	border: 0;
 	border-top-right-radius: 3px;
@@ -151,7 +157,7 @@ aside form {
 aside input {
 	height: 50px;
 	width: 100%;
-	font-size: 16px;
+	font-size: 22px;
   padding-left: 10px;
 	border: solid 2px var(--background-blue);
 	border-radius: 3px;
@@ -195,6 +201,69 @@ aside input {
 .card-area {
 	background-color: var(--background-card-area);
 	height: 100vw;
-	width: 100%;
+  column-gap: 1.5rem;
+  column-width: 19em;  
+  padding: 30px;
+  width: 100%;
 }
 
+article {
+  /* padding:  1rem; */
+  background: var(--background-card);
+  border: 2px solid var(--card-border);
+  display: inline-block;
+  margin:  0.25rem;
+  margin-bottom: 1.75rem;
+  width:  100%; 
+}
+
+header {
+  width: 92%;
+  margin: auto;
+  height: 40px;
+  margin-top: 8px;
+}
+
+p {
+  margin:  1rem 0; 
+  font-size: 22px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+footer button {
+  height: 90%;
+  all: unset;
+}
+
+footer img {
+  height: 60%;
+}
+
+ul {
+  list-style: none;
+}
+
+.card-main-section {
+  width: 99%;
+  margin: 0 auto;
+  border-top: 2px solid var(--card-border);
+  border-bottom: 2px solid var(--card-border);
+}
+
+li {
+  display: flex;
+  padding: 0;
+}
+
+li img {
+  margin: 21px 15px 0 15px;
+  height: 23px;
+}
