@@ -15,7 +15,7 @@
     <h1>CHECK<span> YO'</span> SELF</h1>
     <form>
       <img src="images/search.svg">
-      <input type="text" placeholder="Search">
+      <input id="input-search" type="text" placeholder="Search">
     </form>
   </nav>
   <main>
@@ -23,20 +23,20 @@
       <section class="aside-top">
         <form>
           <label>Task Title</label>
-          <input type="text" name="">
+          <input id="input-title" type="text" name="">
           <label>Task Item</label>
           <div class="add-form">
-            <input type="text" name="">
+            <input id="input-item" type="text" name="">
             <button>
-              <img class="plus-icon" src="images/plus-icon.svg">
+              <img id="button-add" class="button-add" src="images/plus-icon.svg">
             </button>
           </div>
-          <button class="button-sidebar">Make Task List</button>
-          <button class="button-sidebar">Clear All</button>
+          <button id="button-create" class="button-sidebar">Make Task List</button>
+          <button id="button-clear" class="button-sidebar">Clear All</button>
         </form>
       </section>
       <section class="aside-bottom">
-        <button class="button-sidebar">Filter by Urgency</button>
+        <button id="button-filter" class="button-sidebar">Filter by Urgency</button>
       </section>
     </aside>
     <section class="card-area">
@@ -77,5 +77,7 @@
     </section>
   </main>
 </body>
+<script type="text/javascript" src="todo-list.js"></script>
+<script type="text/javascript" src="main.js"></script>
 
 </html>
