@@ -1,24 +1,29 @@
 :root {
-  --main-blue: #1F1F3D;
-  --aside-green: #59798B;
-  --urgent-yellow: #FFE79D;
-  --urgent-border-yellow: #FFC310;
-  --border-green: #C8D3D9;
-  --highlight-salmon: #FF6A59;
-  --background-eggshell: #F2F6F7;
-  --card-white: #F9FDFF;
-  --label-white: #BDCBD1;
-  --aside-border-green: #3B6577;
+  --aside-border: #3B6577;
+  --background-blue: #1F1F3D;
+  --background-card-area: #F3F6F7;
+  --background-card: #F4FDFF;
+  --background-green: #587A8A;
+  --card-border: #C7D3D8;
+  --card-text: #3C6577;
+  --hover-title: #FF6A59;
+  --label: #BDCBD1;
+  --urgent-active: #B23A25;
+  --urgent-background: #FFE89D;
+  --urgent-border-active: #FFC30C;
+  --filter-border: #782616;
+  --urgent-button: #EF4A23;
 }
 
 * {
+  /* border: 1px solid red; */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-	background-color: var(--sidebar-green);
+	background-color: var(--background-green);
   font-family: 'Open Sans', sans-serif;
   height: 100vh;
 }
@@ -37,21 +42,21 @@ button:focus {
 
 nav {
 	align-items: center;
-	background-color: var(--main-blue);
+	background-color: var(--background-blue);
 	display: flex;
 	justify-content: space-between;
-	height: 70px;
+	height: 75px;
 }
 
 h1 {
 	color: white;
-	font-size: 35px;
+	font-size: 38px;
 	font-weight: bold;
-	margin-left: 15px;
+	margin-left: 20px;
 }
 
 h1:hover {
-	color: var(--highlight-salmon);
+	color: var(--hover-title);
 	transition: 0.25s;
 }
 
@@ -62,13 +67,13 @@ h1 span {
 nav form {
 	display: flex;
 	margin-right: 15px;
-	width: 300px;
-	height: 40px;
+	width: 400px;
+	height: 50px;
 }
 
 nav img {
-	background-color: var(--border-green);
-	height: 40px;
+	background-color: var(--label);
+	height: 50px;
 	padding: 9px 0;
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
@@ -93,10 +98,10 @@ main {
 /* SIDEBAR section */
 
 aside {
-	background-color: var(--aside-green);
+	background-color: var(--background-green);
 	height: 100vh;
-	width: 35%;
-	border-right: solid 2px var(--aside-border-green);
+	width: 45%;
+	border-right: solid 2px var(--aside-border);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -107,47 +112,48 @@ aside {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	height: 350px;
-	justify-content: space-around;
-	border-bottom: solid 2px var(--aside-border-green);
+	height: 400px;
+	border-bottom: solid 2px var(--aside-border);
 	width: 100%;
 }
 
 label {
-	color: var(--label-white);
-	font-weight: bold;
+	color: var(--label);
+  font-weight: bold;
+  margin: 30px 0 10px 0;
+  font-size: 18px
 }
 
 aside form {
-	display: flex;
+  display: flex;
+  justify-content: flex-start;
 	flex-direction: column;
-	justify-content: space-around;
-	width: 85%;
-	height: 350px;
+	width: 90%;
+  height: 400px;
 }
 
-aside button {
-	background-color: var(--main-blue);
+.button-sidebar {
+	background-color: var(--background-blue);
 	color: white;
-	font-size: 18px;
+	font-size: 22px;
 	font-weight: bold;
-	height: 40px;
+	height: 50px;
 	width: 100%;
 	border: 0;
-	border-radius: 3px
+  border-radius: 3px;
+  margin-top: 20px;
 }
 
 .add-form {
-	display: flex;
-	flex-direction: row
+  display: flex;
 }
 
 aside input {
-	height: 40px;
+	height: 50px;
 	width: 100%;
 	font-size: 16px;
-	padding-left: 10px;
-	border: solid 2px var(--main-blue);
+  padding-left: 10px;
+	border: solid 2px var(--background-blue);
 	border-radius: 3px;
 }
 
@@ -157,18 +163,22 @@ aside input {
 	border-bottom-left-radius: 3px
 }
 
-.add-form button {
-	border-radius: 0;
-	width: 50px;
-	font-size: 50px;
-	font-weight: 300;
+.plus-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #1F1F3D;
 	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px
+  border-bottom-right-radius: 3px;
+  margin-top: 2px;
 }
 
-.add-form div {
-	position: relative;
-	bottom: 13px;
+.add-form button {
+  width: 55px;
+  height: 50px;
+  background-color: #1F1F3D;
+  border: 0;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px
 }
 
 .aside-bottom {
@@ -177,13 +187,14 @@ aside input {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 85%;
+	width: 90%;
 }
 
 /* CARD AREA section */
 
 .card-area {
-	background-color: var(--background-eggshell);
+	background-color: var(--background-card-area);
 	height: 100vw;
 	width: 100%;
 }
+
