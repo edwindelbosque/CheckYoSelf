@@ -186,7 +186,6 @@ aside input {
 .plus-icon {
   width: 100%;
   height: 100%;
-  background-color: #1F1F3D;
 	border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   padding: 10px;
@@ -198,18 +197,18 @@ aside input {
   background-color: #1F1F3D;
   border: 0;
 	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px
-}
-
-.add-form img:hover {
-  background-color: var(--urgent-button);
-  transition: 0.25s;
+  border-bottom-right-radius: 3px;
   border-top: solid 2px var(--background-blue);
   border-right: solid 2px var(--background-blue);
   border-bottom: solid 2px var(--background-blue);
 }
 
-.add-form img:active {
+.add-form button:hover {
+  background-color: var(--urgent-button);
+  transition: 0.25s;
+}
+
+.add-form button:active {
   background-color: var(--urgent-active);
   transition: 0.25s;
 }
