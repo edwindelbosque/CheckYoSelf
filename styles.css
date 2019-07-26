@@ -86,8 +86,9 @@ nav img {
 }
 
 nav input {
+  color: var(--background-blue);
 	width: 100%;
-	font-size: 20px;
+	font-size: 22px;
 	padding-left: 10px;
 	border: 0;
 	border-top-right-radius: 3px;
@@ -150,6 +151,18 @@ aside form {
   margin-top: 20px;
 }
 
+.button-sidebar:hover {
+  background-color: var(--urgent-button);
+  transition: 0.20s;
+  border: solid 2px var(--filter-border);
+}
+
+.button-sidebar:active {
+  background-color: var(--urgent-active);
+  transition: 0.20s;
+  border: solid 2px var(--filter-border);
+}
+
 .add-form {
   display: flex;
 }
@@ -160,7 +173,8 @@ aside input {
 	font-size: 22px;
   padding-left: 10px;
 	border: solid 2px var(--background-blue);
-	border-radius: 3px;
+  border-radius: 3px;
+  color: var(--background-blue);
 }
 
 .add-form input {
@@ -170,12 +184,12 @@ aside input {
 }
 
 .plus-icon {
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   background-color: #1F1F3D;
 	border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  margin-top: 2px;
+  padding: 10px;
 }
 
 .add-form button {
@@ -185,6 +199,19 @@ aside input {
   border: 0;
 	border-top-right-radius: 3px;
 	border-bottom-right-radius: 3px
+}
+
+.add-form img:hover {
+  background-color: var(--urgent-button);
+  transition: 0.25s;
+  border-top: solid 2px var(--background-blue);
+  border-right: solid 2px var(--background-blue);
+  border-bottom: solid 2px var(--background-blue);
+}
+
+.add-form img:active {
+  background-color: var(--urgent-active);
+  transition: 0.25s;
 }
 
 .aside-bottom {
@@ -200,7 +227,6 @@ aside input {
 
 .card-area {
 	background-color: var(--background-card-area);
-	height: 100vw;
   column-gap: 1.5rem;
   column-width: 19em;  
   padding: 30px;
@@ -241,10 +267,14 @@ footer {
 footer button {
   height: 90%;
   all: unset;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 footer img {
-  height: 60%;
+  height: 30px;
+  margin-bottom: 5px;
 }
 
 ul {
