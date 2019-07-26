@@ -333,16 +333,16 @@ li img {
   nav {
     flex-direction: column;
     height: 140px;
-    justify-content: center;
+    justify-content: space-evenly;
   }
 
   h1 {
-    font-size: 50px;
     margin: 0;
   }
 
   nav form {
     margin: 0;
+    width: 90%;
   }
 
   aside {
