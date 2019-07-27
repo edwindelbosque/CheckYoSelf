@@ -2,12 +2,17 @@ var objectsArray = [];
 var newListOfTasks = [];
 var navBar = document.querySelector('nav');
 var sideBar = document.querySelector('aside');
+var buttonMakeList = document.querySelector('#button-create');
+var cardArea = document.querySelector('.card-area');
+var displaySidebarItems = document.querySelector('#list-items');
+var inputTitle = document.querySelector('#input-title');
 
 navBar.addEventListener('keyup', handleNav);
-sideBar.addEventListener('keyup', handleSideBarInputs);
 sideBar.addEventListener('click', handleSideBarButtons);
-var inputTitle = document.querySelector('#input-title');
-var displaySidebarItems = document.querySelector('#list-items');
+sideBar.addEventListener('keyup', handleSideBarInputs);
+cardArea.addEventListener('click', handleCardArea);
+
+
 
 function handleNav(e) {
 	e.preventDefault(e);
@@ -37,6 +42,16 @@ function handleSideBarButtons(e) {
 		clearAll();
 	} else if (e.target.id === 'button-filter') {
 		console.log('filter!');
+	}
+}
+
+function handleCardArea(e) {
+	e.preventDefault();
+	if (e.target.id === 'button-urgent') {
+		console.log('urgent!');
+	}
+	if (e.target.id === 'button-delete-card') {
+		console.log('delete!');
 	}
 }
 
@@ -71,6 +86,7 @@ function instantiateToDoList() {
 	toDoList.saveToStorage(objectsArray);
 	displaySidebarItems.innerHTML = '';
 	inputTitle.value = '';
+	displayCards(toDoList, newListOfTasks);
 	enableMakeList();
 	newListOfTasks = [];
 	console.log(toDoList);
@@ -99,4 +115,35 @@ function enableMakeList() {
 		: (buttonMakeList.disabled = false);
 }
 
-var buttonMakeList = document.querySelector('#button-create');
+function displayCards(toDoList, newListOfTasks) {
+	var htmlBlock = `      
+	<article>
+		<header>
+			<h2>${toDoList.title}</h2>
+		</header>
+		<section class="card-main-section">
+			<ul>${pushTasksToDom(newListOfTasks)}</ul >
+		</section >
+	<footer>
+		<button>
+			<img id="button-urgent" class="button-urgent" src="images/urgent.svg">
+				<h6>URGENT</h6>
+			</button>
+			<button>
+				<img id="button-delete-card" class="button-delete-card" src="images/delete.svg">
+					<h6>DELETE</h6>
+			</button>
+		</footer>
+	</article>`
+
+	cardArea.insertAdjacentHTML('afterbegin', htmlBlock);
+}
+
+function pushTasksToDom(newListOfTasks) {
+	var taskList = '';
+	for (var i = 0; i < newListOfTasks.length; i++) {
+		taskList +=
+			`<li><img src="images/checkbox.svg"><p>${newListOfTasks[i].text}</p></li>`
+	}
+	return taskList;
+}

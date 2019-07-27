@@ -22,12 +22,6 @@
   padding: 0;
 }
 
-/* *, 
-*:before, 
-*:after {
-  box-sizing:  border-box;
-}  */
-
 body {
   background-color: var(--background-green);
   font-family: 'Open Sans', sans-serif;
@@ -243,6 +237,10 @@ aside ul img {
   padding: 0 8px 5px 0;
 }
 
+aside ul img:hover {
+	content:url("images/delete-active.svg");
+}
+
 #button-create:disabled {
 	background-color: #525461;
 	transition: 0.25s;
@@ -303,17 +301,21 @@ header {
 }
 
 p {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   font-size: 22px;
+  border-radius: 5px;
   border: dashed 2px var(--background-card);
   padding: 3px 0 0 5px;
 }
 
 p:hover {
   border: dashed 2px var(--card-border);
-  border-radius: 5px;
   transition: 0.25s;
   background-color: #f7f7f7;
+}
+
+h2 {
+  padding-top: 3px;
 }
 
 footer {
@@ -359,12 +361,27 @@ ul {
 
 li {
   display: flex;
-  padding: 0;
+}
+
+li p {
+  padding: 5px;
 }
 
 article li img {
-  margin: 25px 10px 0 15px;
+  margin: 17px 6px 0 15px;
   height: 23px;
+}
+
+article li img:hover {
+  content:url("images/checkbox-active.svg");
+}
+
+.button-urgent:hover {
+  content:url("images/urgent-active.svg");
+}
+
+.button-delete-card:hover {
+  content:url("images/delete-active.svg");
 }
 
 @media only screen and (max-width: 730px) {

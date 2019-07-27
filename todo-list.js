@@ -4,13 +4,14 @@ class ToDoList {
 		this.title = toDo.title;
 		this.tasksArray = toDo.tasksArray || [];
 		this.urgent = toDo.urgent || false;
+		this.complete = toDo.complete || false;
 	}
 
 	saveToStorage(toDosArray) {
 		localStorage.setItem('toDosArray', JSON.stringify(toDosArray));
 	}
 
-	deleteFromStorage() {}
+	deleteFromStorage() { }
 
 	updateToDo() {
 		// title and urgency
@@ -20,7 +21,7 @@ class ToDoList {
 		// update content
 	}
 
-	pushTask() {}
+	pushTask() { }
 }
 
 class Task {
