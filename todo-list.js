@@ -1,24 +1,22 @@
 class ToDoList {
-  constructor() {
-    this.id = id;
-    this.title = "";
-    this.urgent = false;
-    this.tasks = [];
-  }
+	constructor(toDo) {
+		this.id = toDo.id;
+		this.title = toDo.title;
+		this.tasksArray = toDo.tasksArray || [];
+		this.urgent = toDo.urgent || false;
+	}
 
-  saveToStorage() {
+	saveToStorage(toDosArray) {
+		// localStorage.setItem('toDosArray', JSON.stringify(toDosArray));
+	}
 
-  }
+	deleteFromStorage() {}
 
-  deleteFromStorage() {
+	updateToDo() {
+		// title and urgency
+	}
 
-  }
-
-  updateToDo() { // title and urgency
-
-  }
-
-  updateTask() { // update content
-
-  }
+	updateTask() {
+		// update content
+	}
 }
