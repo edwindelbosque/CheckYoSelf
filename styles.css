@@ -243,6 +243,12 @@ aside ul img {
   padding: 0 8px 5px 0;
 }
 
+#button-create:disabled {
+	background-color: #525461;
+	transition: 0.25s;
+	pointer-events: none;
+}
+
 .aside-bottom {
   display: flex;
   flex-direction: column;
