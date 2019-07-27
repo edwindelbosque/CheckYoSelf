@@ -142,6 +142,7 @@ aside form {
   border-radius: 3px;
   margin-top: 0px;
   margin-bottom: 20px;
+  transition: 0.25s;
 }
 
 .button-sidebar:hover {
@@ -203,6 +204,12 @@ aside input {
 }
 
 .button-add:disabled {
+  background-color: #525461;
+  transition: 0.25s;
+  pointer-events: none;
+}
+
+.button-sidebar:disabled {
   background-color: #525461;
   transition: 0.25s;
   pointer-events: none;

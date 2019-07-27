@@ -1,18 +1,25 @@
-var objectsArray = [];
-var newListOfTasks = [];
+var globalLists = [];
+var globalTasks = [];
 var navBar = document.querySelector('nav');
 var sideBar = document.querySelector('aside');
 var buttonMakeList = document.querySelector('#button-create');
 var cardArea = document.querySelector('.card-area');
 var displaySidebarItems = document.querySelector('#list-items');
 var inputTitle = document.querySelector('#input-title');
+var inputTask = document.querySelector('#input-item');
+var buttonClear = document.querySelector('#button-clear');
+var listItems = document.querySelector('#list-items');
 
 navBar.addEventListener('keyup', handleNav);
 sideBar.addEventListener('click', handleSideBarButtons);
 sideBar.addEventListener('keyup', handleSideBarInputs);
 cardArea.addEventListener('click', handleCardArea);
 
+// repopulateLists();
 
+// function repopulateLists() {
+// 	localStorage.getItem(listsArray);
+// }
 
 function handleNav(e) {
 	e.preventDefault(e);
@@ -24,8 +31,10 @@ function handleSideBarInputs(e) {
 	e.preventDefault();
 	if (e.target.id === 'input-title') {
 		enableMakeList();
+		enableClear();
 	} else if (e.target.id === 'input-item') {
 		enableButton();
+		enableClear();
 	}
 }
 
@@ -33,11 +42,14 @@ function handleSideBarButtons(e) {
 	e.preventDefault();
 	if (e.target.id === 'button-add') {
 		addTask();
+		enableClear()
 	} else if (e.target.id === 'button-delete-item') {
 		deleteItem(e);
 		enableMakeList();
+		enableClear()
 	} else if (e.target.id === 'button-create') {
 		instantiateToDoList(e);
+		enableClear();
 	} else if (e.target.id === 'button-clear') {
 		clearAll();
 	} else if (e.target.id === 'button-filter') {
@@ -59,15 +71,14 @@ function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
 	var task = new Task({ id: Date.now(), text: taskInput, complete: false });
 
-	newListOfTasks.push(task);
+	globalTasks.push(task);
 	displayTask(task);
-	console.log(newListOfTasks);
+	console.log(globalTasks);
 }
 
 function displayTask(object) {
-	var listItems = document.querySelector('#list-items');
 	listItems.insertAdjacentHTML(
-		'afterbegin',
+		'beforeend',
 		`<li><img id="button-delete-item" src="images/delete.svg" data-set="${object.id}">${object.text}</li>`
 	);
 	document.querySelector('#input-item').value = '';
@@ -79,21 +90,17 @@ function instantiateToDoList() {
 	var toDoList = new ToDoList({
 		id: Date.now(),
 		title: document.querySelector('#input-title').value,
-		tasksArray: newListOfTasks,
+		tasksArray: globalTasks,
 		urgent: false
 	});
-	objectsArray.push(toDoList);
-	toDoList.saveToStorage(objectsArray);
+	globalLists.push(toDoList);
+	toDoList.saveToStorage(globalLists);
 	displaySidebarItems.innerHTML = '';
 	inputTitle.value = '';
-	displayCards(toDoList, newListOfTasks);
+	displayCards(toDoList, globalTasks);
 	enableMakeList();
-	newListOfTasks = [];
+	globalTasks = [];
 	console.log(toDoList);
-}
-
-function enableButton() {
-	document.querySelector('#button-add').disabled = !document.querySelector('#input-item').value;
 }
 
 function deleteItem(e) {
@@ -107,22 +114,17 @@ function clearAll() {
 	inputTitle.value = '';
 	displaySidebarItems.innerHTML = '';
 	enableMakeList();
+	enableClear();
 }
 
-function enableMakeList() {
-	inputTitle.value === '' || displaySidebarItems.innerHTML === ''
-		? (buttonMakeList.disabled = true)
-		: (buttonMakeList.disabled = false);
-}
-
-function displayCards(toDoList, newListOfTasks) {
+function displayCards(toDoList, globalTasks) {
 	var htmlBlock = `      
 	<article>
 		<header>
 			<h2>${toDoList.title}</h2>
 		</header>
 		<section class="card-main-section">
-			<ul>${pushTasksToDom(newListOfTasks)}</ul >
+			<ul>${pushTasksToDom(globalTasks)}</ul >
 		</section >
 	<footer>
 		<button>
@@ -139,11 +141,27 @@ function displayCards(toDoList, newListOfTasks) {
 	cardArea.insertAdjacentHTML('afterbegin', htmlBlock);
 }
 
-function pushTasksToDom(newListOfTasks) {
+function pushTasksToDom(globalTasks) {
 	var taskList = '';
-	for (var i = 0; i < newListOfTasks.length; i++) {
+	for (var i = 0; i < globalTasks.length; i++) {
 		taskList +=
-			`<li><img src="images/checkbox.svg"><p>${newListOfTasks[i].text}</p></li>`
+			`<li><img src="images/checkbox.svg"><p>${globalTasks[i].text}</p></li>`
 	}
 	return taskList;
+}
+
+function enableClear() {
+	inputTitle.value !== '' || displaySidebarItems.innerHTML !== '' || inputTask.value !== ''
+		? (buttonClear.disabled = false)
+		: (buttonClear.disabled = true);
+}
+
+function enableButton() {
+	document.querySelector('#button-add').disabled = !document.querySelector('#input-item').value;
+}
+
+function enableMakeList() {
+	!inputTitle.value || !displaySidebarItems.innerHTML
+		? (buttonMakeList.disabled = true)
+		: (buttonMakeList.disabled = false);
 }

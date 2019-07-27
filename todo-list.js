@@ -7,8 +7,8 @@ class ToDoList {
 		this.complete = toDo.complete || false;
 	}
 
-	saveToStorage(toDosArray) {
-		localStorage.setItem('toDosArray', JSON.stringify(toDosArray));
+	saveToStorage(listsArray) {
+		localStorage.setItem('listsArray', JSON.stringify(listsArray));
 	}
 
 	deleteFromStorage() { }
@@ -32,6 +32,6 @@ class Task {
 	}
 
 	saveToStorage(tasksArray) {
-		localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
+
 	}
 }
