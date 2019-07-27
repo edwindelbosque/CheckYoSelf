@@ -7,7 +7,7 @@ class ToDoList {
 	}
 
 	saveToStorage(toDosArray) {
-		// localStorage.setItem('toDosArray', JSON.stringify(toDosArray));
+		localStorage.setItem('toDosArray', JSON.stringify(toDosArray));
 	}
 
 	deleteFromStorage() {}
@@ -18,5 +18,19 @@ class ToDoList {
 
 	updateTask() {
 		// update content
+	}
+
+	pushTask() {}
+}
+
+class Task {
+	constructor(task) {
+		this.id = task.id;
+		this.text = task.text;
+		this.complete = task.false || false;
+	}
+
+	saveToStorage(tasksArray) {
+		localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
 	}
 }
