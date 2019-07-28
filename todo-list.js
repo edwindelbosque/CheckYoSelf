@@ -26,7 +26,7 @@ class Task {
 	constructor(task) {
 		this.id = task.id;
 		this.text = task.text;
-		this.complete = task.false || false;
+		this.complete = task.complete || false;
 	}
 
 	saveToStorage(tasksArray) {
