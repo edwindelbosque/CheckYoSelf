@@ -71,7 +71,7 @@ function handleCardArea(e) {
 		updateUrgency(e);
 	}
 	if (e.target.id === 'button-delete-card') {
-		deleteCard(e);
+		deleteHandler(e);
 	}
 }
 
@@ -137,7 +137,7 @@ function pushTasksToDom(toDoList) {
 	var taskList = '';
 	for (var i = 0; i < toDoList.tasksArray.length; i++) {
 		taskList +=
-			`<li key="${toDoList.tasksArray[i].id}"><img src="images/checkbox.svg" id="button-complete"><p>${toDoList.tasksArray[i].text}</p></li>`
+			`<li key="${toDoList.tasksArray[i].id}" contenteditable><img src="images/checkbox.svg" id="button-complete"><p>${toDoList.tasksArray[i].text}</p></li>`
 	}
 	return taskList;
 }
@@ -241,3 +241,16 @@ function completeTask(e) {
 			e.target.closest('img').classList.remove('check-task-icon'))
 }
 
+function deleteHandler(e) {
+	var checkArray = [];
+	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	var tasks = globalLists[listIndex].tasksArray;
+
+	for (var i = 0; i < tasks.length; i++) {
+		checkArray.push(tasks[i].complete);
+	}
+	if (checkArray.includes(false)) {
+		console.log('dont delete');
+	} else
+		deleteCard(e);
+}

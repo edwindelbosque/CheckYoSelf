@@ -342,16 +342,17 @@ article p:hover {
   transition: 0.25s;
 }
 
+h2:focus, 
+p:focus,
+li:focus {
+  outline: none;
+}
+
 h2:focus,
 article p:focus {
   background-color: rgba(0,0,0,0);
   border: dashed 2px var(--card-border);
   transition: 0.25s;
-}
-
-h2, 
-p {
-  outline: none;
 }
 
 footer {
