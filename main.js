@@ -1,25 +1,30 @@
-var globalLists = [];
-var globalTasks = [];
-var navBar = document.querySelector('nav');
-var sideBar = document.querySelector('aside');
+// querySelectors
+
+var buttonAddTask = document.querySelector('#button-add')
+var buttonClear = document.querySelector('#button-clear');
 var buttonMakeList = document.querySelector('#button-create');
 var cardArea = document.querySelector('.card-area');
 var displaySidebarItems = document.querySelector('#list-items');
-var inputTitle = document.querySelector('#input-title');
 var inputTask = document.querySelector('#input-item');
-var buttonClear = document.querySelector('#button-clear');
+var inputTitle = document.querySelector('#input-title');
 var listItems = document.querySelector('#list-items');
+var navBar = document.querySelector('nav');
+var sideBar = document.querySelector('aside');
 
+// global variables
+
+var globalLists = [];
+var globalTasks = [];
+
+// event listeners
+
+cardArea.addEventListener('click', handleCardArea);
 navBar.addEventListener('keyup', handleNav);
 sideBar.addEventListener('click', handleSideBarButtons);
 sideBar.addEventListener('keyup', handleSideBarInputs);
-cardArea.addEventListener('click', handleCardArea);
+// window.addEventListener('DOMContentLoaded', handlePageLoad);
 
-// repopulateLists();
-
-// function repopulateLists() {
-// 	localStorage.getItem(listsArray);
-// }
+// event delegations
 
 function handleNav(e) {
 	e.preventDefault(e);
@@ -33,7 +38,7 @@ function handleSideBarInputs(e) {
 		enableMakeList();
 		enableClear();
 	} else if (e.target.id === 'input-item') {
-		enableButton();
+		enableAdd();
 		enableClear();
 	}
 }
@@ -45,6 +50,7 @@ function handleSideBarButtons(e) {
 		enableClear()
 	} else if (e.target.id === 'button-delete-item') {
 		deleteItem(e);
+		retrieveTaskId(e);
 		enableMakeList();
 		enableClear()
 	} else if (e.target.id === 'button-create') {
@@ -52,20 +58,24 @@ function handleSideBarButtons(e) {
 		enableClear();
 	} else if (e.target.id === 'button-clear') {
 		clearAll();
+		enableAdd();
 	} else if (e.target.id === 'button-filter') {
-		console.log('filter!');
 	}
 }
 
 function handleCardArea(e) {
 	e.preventDefault();
 	if (e.target.id === 'button-urgent') {
-		console.log('urgent!');
 	}
 	if (e.target.id === 'button-delete-card') {
-		console.log('delete!');
 	}
 }
+
+// functions
+
+// function handlePageLoad() {
+// 	populateCards(globalLists);
+// }
 
 function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
@@ -73,16 +83,15 @@ function addTask() {
 
 	globalTasks.push(task);
 	displayTask(task);
-	console.log(globalTasks);
 }
 
 function displayTask(object) {
 	listItems.insertAdjacentHTML(
 		'beforeend',
-		`<li><img id="button-delete-item" src="images/delete.svg" data-set="${object.id}">${object.text}</li>`
+		`<li data-set="${object.id}"><img id="button-delete-item" src="images/delete.svg">${object.text}</li>`
 	);
 	document.querySelector('#input-item').value = '';
-	enableButton();
+	enableAdd();
 	enableMakeList();
 }
 
@@ -100,31 +109,16 @@ function instantiateToDoList() {
 	displayCards(toDoList, globalTasks);
 	enableMakeList();
 	globalTasks = [];
-	console.log(toDoList);
 }
 
-function deleteItem(e) {
-	if (e.target.id === 'button-delete-item') {
-		e.target.parentNode.remove();
-	}
-}
-
-function clearAll() {
-	document.querySelector('#input-item').value = '';
-	inputTitle.value = '';
-	displaySidebarItems.innerHTML = '';
-	enableMakeList();
-	enableClear();
-}
-
-function displayCards(toDoList, globalTasks) {
+function displayCards(toDoList) {
 	var htmlBlock = `      
 	<article>
 		<header>
 			<h2>${toDoList.title}</h2>
 		</header>
 		<section class="card-main-section">
-			<ul>${pushTasksToDom(globalTasks)}</ul >
+			<ul>${pushTasksToDom(toDoList)}</ul >
 		</section >
 	<footer>
 		<button>
@@ -141,27 +135,64 @@ function displayCards(toDoList, globalTasks) {
 	cardArea.insertAdjacentHTML('afterbegin', htmlBlock);
 }
 
-function pushTasksToDom(globalTasks) {
+function pushTasksToDom(toDoList) {
 	var taskList = '';
-	for (var i = 0; i < globalTasks.length; i++) {
+	for (var i = 0; i < toDoList.tasksArray.length; i++) {
 		taskList +=
-			`<li><img src="images/checkbox.svg"><p>${globalTasks[i].text}</p></li>`
+			`<li><img src="images/checkbox.svg"><p>${toDoList.tasksArray[i].text}</p></li>`
 	}
 	return taskList;
 }
 
+// function populateCards(globalLists) {
+// 	for (i = 0; i < globalLists.length; i++) {
+// 		displayCards(globalLists[i]);
+// 	}
+// }
+
+function repopulateLists() {
+	localStorage.getItem(listsArray);
+}
+
+function clearAll() {
+	document.querySelector('#input-item').value = '';
+	inputTitle.value = '';
+	displaySidebarItems.innerHTML = '';
+	enableMakeList();
+	enableClear();
+}
+
 function enableClear() {
-	inputTitle.value !== '' || displaySidebarItems.innerHTML !== '' || inputTask.value !== ''
+	inputTitle.value || displaySidebarItems.innerHTML || inputTask.value
 		? (buttonClear.disabled = false)
 		: (buttonClear.disabled = true);
 }
 
-function enableButton() {
-	document.querySelector('#button-add').disabled = !document.querySelector('#input-item').value;
+function enableAdd() {
+	buttonAddTask.disabled = !inputTask.value;
 }
 
 function enableMakeList() {
 	!inputTitle.value || !displaySidebarItems.innerHTML
 		? (buttonMakeList.disabled = true)
 		: (buttonMakeList.disabled = false);
+}
+
+function deleteItem(e) {
+	if (e.target.id === 'button-delete-item') {
+		e.target.parentNode.remove();
+		var taskIndex = findTaskIndex(retrieveTaskId(e));
+		globalTasks.splice(taskIndex, 1);
+	}
+}
+
+function retrieveTaskId(e) {
+	var taskId = e.target.closest('li').getAttribute('data-set');
+	return taskId;
+};
+
+function findTaskIndex(taskId) {
+	return globalTasks.findIndex(function (task) {
+		return task.id === parseInt(taskId);
+	})
 }
