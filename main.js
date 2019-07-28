@@ -126,7 +126,7 @@ function displayCards(toDoList) {
 			</button>
 			<button>
 				<img id="button-delete-card" class="button-delete-card" src="images/delete.svg">
-				<h6>DELETE</h6>
+				<h6 class="delete-text-active">DELETE</h6>
 			</button>
 		</footer>
 	</article>`
@@ -207,11 +207,13 @@ function updateUrgency(e) {
 		? (e.target.closest('article').classList.add('urgent-card'),
 			e.target.closest('article').querySelector('#main-content').classList.add('urgent-content'),
 			e.target.classList.add('button-urgent-active'),
-			e.target.closest('footer').classList.add('urgent-buttons'))
+			e.target.closest('footer').querySelector('.delete-text-active').classList.add('urgent-buttons'),
+			e.target.closest('button').classList.add('check-urgent-text'))
 		: (e.target.closest('article').classList.remove('urgent-card'),
 			e.target.closest('article').querySelector('#main-content').classList.remove('urgent-content'),
 			e.target.classList.remove('button-urgent-active'),
-			e.target.closest('footer').classList.remove('urgent-buttons'))
+			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('urgent-buttons'),
+			e.target.closest('button').classList.remove('check-urgent-text'))
 }
 
 function deleteCard(e) {
@@ -250,7 +252,7 @@ function deleteHandler(e) {
 		checkArray.push(tasks[i].complete);
 	}
 	if (checkArray.includes(false)) {
-		console.log('dont delete');
+		console.log('do not delete');
 	} else
 		deleteCard(e);
 }

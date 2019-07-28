@@ -405,6 +405,10 @@ article ul {
   border-bottom: 2px solid var(--urgent-border-active);
 }
 
+.check-urgent-text {
+  color: var(--urgent-active);
+}
+
 li {
   display: flex;
 }
