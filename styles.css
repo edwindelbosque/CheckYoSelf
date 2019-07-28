@@ -230,18 +230,21 @@ aside ul {
 }
 
 aside li {
-  font-size: 18px;
-  height: 30px;
-  background-color: #e6c565;
-  border: 2px solid #998443;
-  border-radius: 3px;
-  margin-top: 10px;
+  margin-top: 5px;
   padding: 3px 0 0 10px;
   display: flex;
 }
 
+aside p {
+  background-color: #ffd558;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 6px;
+}
+
 aside ul img {
-  padding: 0 8px 5px 0;
+  margin-right: 6px;
+  margin-top: 4px;
 }
 
 aside ul img:hover {
@@ -307,15 +310,15 @@ header {
   margin-top: 8px;
 }
 
-p {
-  margin: 0.5rem 0;
+article p {
+  margin: 0.2rem 0;
   font-size: 22px;
   border-radius: 5px;
   border: dashed 2px var(--background-card);
-  padding: 3px 0 0 5px;
+  padding: 5px;
 }
 
-p:hover {
+article p:hover {
   border: dashed 2px var(--card-border);
   transition: 0.25s;
   background-color: #f7f7f7;
@@ -352,6 +355,10 @@ ul {
   width: 95%
 }
 
+article ul {
+  margin: 10px 0;
+}
+
 .urgent-content {
   width: 99%;
   margin: 0 auto;
@@ -370,12 +377,8 @@ li {
   display: flex;
 }
 
-li p {
-  padding: 5px;
-}
-
 article li img {
-  margin: 17px 6px 0 15px;
+  margin: 12px 5px 0 15px;
   height: 23px;
 }
 

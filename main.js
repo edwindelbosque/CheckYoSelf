@@ -83,7 +83,7 @@ function addTask() {
 function displayTask(object) {
 	listItems.insertAdjacentHTML(
 		'beforeend',
-		`<li data-set="${object.id}"><img id="button-delete-item" src="images/delete.svg">${object.text}</li>`
+		`<li data-set="${object.id}"><img id="button-delete-item" src="images/delete.svg"><p>${object.text}</p></li>`
 	);
 	document.querySelector('#input-item').value = '';
 	enableAdd();
@@ -97,11 +97,12 @@ function instantiateToDoList() {
 		tasksArray: globalTasks,
 		urgent: false
 	});
+
 	globalLists.push(toDoList);
 	toDoList.saveToStorage(globalLists);
 	displaySidebarItems.innerHTML = '';
 	inputTitle.value = '';
-	displayCards(toDoList, globalTasks);
+	displayCards(toDoList);
 	enableMakeList();
 	globalTasks = [];
 }
