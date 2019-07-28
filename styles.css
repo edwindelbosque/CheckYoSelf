@@ -242,6 +242,10 @@ aside p {
   padding: 6px;
 }
 
+input::placeholder {
+  color: lightgray;
+}
+
 aside ul img {
   margin-right: 6px;
   margin-top: 4px;
@@ -321,6 +325,7 @@ article p {
 .check-task-text {
   font-style: italic;
   color: var(--aside-border);
+  text-decoration: line-through;
 }
 
 .check-task-icon {
