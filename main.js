@@ -206,14 +206,16 @@ function updateUrgency(e) {
 	urgentStatus
 		? (e.target.closest('article').classList.add('urgent-card'),
 			e.target.closest('article').querySelector('#main-content').classList.add('urgent-content'),
-			e.target.classList.add('button-urgent-active'))
+			e.target.classList.add('button-urgent-active'),
+			e.target.closest('footer').classList.add('urgent-buttons'))
 		: (e.target.closest('article').classList.remove('urgent-card'),
 			e.target.closest('article').querySelector('#main-content').classList.remove('urgent-content'),
-			e.target.classList.remove('button-urgent-active'))
+			e.target.classList.remove('button-urgent-active'),
+			e.target.closest('footer').classList.remove('urgent-buttons'))
 }
 
 function deleteCard(e) {
-	var listIndex = findListIndex(retrieveListId(e, li));
+	var listIndex = findListIndex(retrieveListId(e, 'article'));
 	globalLists.splice(listIndex, 1);
 	console.log(globalLists);
 	e.target.closest('article').remove();
@@ -228,6 +230,13 @@ function completeTask(e) {
 	})
 
 	globalLists[listIndex].tasksArray[taskIndex].complete
-		= !globalLists[listIndex].tasksArray[taskIndex].complete
+		= !globalLists[listIndex].tasksArray[taskIndex].complete;
 
+	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
+
+	globalLists[listIndex].tasksArray[taskIndex].complete
+		? (e.target.closest('li').classList.add('check-task-text'),
+			e.target.closest('img').classList.add('check-task-icon'))
+		: (e.target.closest('li').classList.remove('check-task-text'),
+			e.target.closest('img').classList.remove('check-task-icon'))
 }
