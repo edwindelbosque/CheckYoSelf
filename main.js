@@ -36,7 +36,8 @@ function handleSideBarInputs(e) {
 	if (e.target.id === 'input-title') {
 		enableMakeList();
 		enableClear();
-	} else if (e.target.id === 'input-item') {
+	}
+	else if (e.target.id === 'input-item') {
 		enableAdd();
 		enableClear();
 	}
@@ -113,17 +114,17 @@ function displayCards(toDoList) {
 		<header>
 			<h2>${toDoList.title}</h2>
 		</header>
-		<section class="card-main-section">
+		<section class="card-main-section" id="main-content">
 			<ul>${pushTasksToDom(toDoList)}</ul >
 		</section >
-	<footer>
-		<button>
-			<img id="button-urgent" class="button-urgent" src="images/urgent.svg">
+		<footer>
+			<button>
+				<img id="button-urgent" class="button-urgent" src="images/urgent.svg">
 				<h6>URGENT</h6>
 			</button>
 			<button>
 				<img id="button-delete-card" class="button-delete-card" src="images/delete.svg">
-					<h6>DELETE</h6>
+				<h6>DELETE</h6>
 			</button>
 		</footer>
 	</article>`
@@ -134,7 +135,7 @@ function pushTasksToDom(toDoList) {
 	var taskList = '';
 	for (var i = 0; i < toDoList.tasksArray.length; i++) {
 		taskList +=
-			`<li><img src="images/checkbox.svg"><p>${toDoList.tasksArray[i].text}</p></li>`
+			`<li task-id="${toDoList.tasksArray[i].id}"><img src="images/checkbox.svg"><p>${toDoList.tasksArray[i].text}</p></li>`
 	}
 	return taskList;
 }
@@ -198,7 +199,15 @@ function findListIndex(listId) {
 function updateUrgency(e) {
 	var listIndex = findListIndex(retrieveListId(e));
 	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
-	console.log(globalLists[listIndex].urgent);
+	var urgentStatus = globalLists[listIndex].urgent;
+
+	urgentStatus
+		? (e.target.closest('article').classList.add('urgent-card'),
+			e.target.closest('article').querySelector('#main-content').classList.add('urgent-content'),
+			e.target.classList.add('button-urgent-active'))
+		: (e.target.closest('article').classList.remove('urgent-card'),
+			e.target.closest('article').querySelector('#main-content').classList.remove('urgent-content'),
+			e.target.classList.remove('button-urgent-active'))
 }
 
 function deleteCard(e) {

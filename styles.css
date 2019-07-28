@@ -314,7 +314,7 @@ article p {
   margin: 0.2rem 0;
   font-size: 22px;
   border-radius: 5px;
-  border: dashed 2px var(--background-card);
+  border: dashed 2px rgba(0,0,0,0);
   padding: 5px;
 }
 
@@ -359,13 +359,6 @@ article ul {
   margin: 10px 0;
 }
 
-.urgent-content {
-  width: 99%;
-  margin: 0 auto;
-  border-top: 2px solid var(--urgent-border-active);
-  border-bottom: 2px solid var(--urgent-border-active);
-}
-
 .card-main-section {
   border-bottom: 2px solid var(--card-border);
   border-top: 2px solid var(--card-border);
@@ -373,17 +366,28 @@ article ul {
   width: 99%;
 }
 
+.urgent-content {
+  width: 99%;
+  margin: 0 auto;
+  border-top: 2px solid var(--urgent-border-active);
+  border-bottom: 2px solid var(--urgent-border-active);
+}
+
 li {
   display: flex;
 }
 
 article li img {
-  margin: 12px 5px 0 15px;
+  margin: 11px 5px 0 15px;
   height: 23px;
 }
 
 article li img:hover {
   content:url("images/checkbox-active.svg");
+}
+
+.button-urgent-active {
+  content:url("images/urgent-active.svg");
 }
 
 .button-urgent:hover {
