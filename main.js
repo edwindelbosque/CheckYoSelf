@@ -22,7 +22,6 @@ cardArea.addEventListener('click', handleCardArea);
 navBar.addEventListener('keyup', handleNav);
 sideBar.addEventListener('click', handleSideBarButtons);
 sideBar.addEventListener('keyup', handleSideBarInputs);
-// window.addEventListener('DOMContentLoaded', handlePageLoad);
 
 // event delegations
 
@@ -66,16 +65,12 @@ function handleSideBarButtons(e) {
 function handleCardArea(e) {
 	e.preventDefault();
 	if (e.target.id === 'button-urgent') {
+		updateUrgency(e);
 	}
 	if (e.target.id === 'button-delete-card') {
+		deleteCard(e);
 	}
 }
-
-// functions
-
-// function handlePageLoad() {
-// 	populateCards(globalLists);
-// }
 
 function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
@@ -113,7 +108,7 @@ function instantiateToDoList() {
 
 function displayCards(toDoList) {
 	var htmlBlock = `      
-	<article>
+	<article list-id="${toDoList.id}" >
 		<header>
 			<h2>${toDoList.title}</h2>
 		</header>
@@ -131,7 +126,6 @@ function displayCards(toDoList) {
 			</button>
 		</footer>
 	</article>`
-
 	cardArea.insertAdjacentHTML('afterbegin', htmlBlock);
 }
 
@@ -143,12 +137,6 @@ function pushTasksToDom(toDoList) {
 	}
 	return taskList;
 }
-
-// function populateCards(globalLists) {
-// 	for (i = 0; i < globalLists.length; i++) {
-// 		displayCards(globalLists[i]);
-// 	}
-// }
 
 function repopulateLists() {
 	localStorage.getItem(listsArray);
@@ -179,11 +167,9 @@ function enableMakeList() {
 }
 
 function deleteItem(e) {
-	if (e.target.id === 'button-delete-item') {
-		e.target.parentNode.remove();
-		var taskIndex = findTaskIndex(retrieveTaskId(e));
-		globalTasks.splice(taskIndex, 1);
-	}
+	e.target.parentNode.remove();
+	var taskIndex = findTaskIndex(retrieveTaskId(e));
+	globalTasks.splice(taskIndex, 1);
 }
 
 function retrieveTaskId(e) {
@@ -195,4 +181,28 @@ function findTaskIndex(taskId) {
 	return globalTasks.findIndex(function (task) {
 		return task.id === parseInt(taskId);
 	})
+}
+
+function retrieveListId(e) {
+	var listId = e.target.closest('article').getAttribute('list-id');
+	return listId;
+}
+
+function findListIndex(listId) {
+	return globalLists.findIndex(function (list) {
+		return list.id === parseInt(listId);
+	})
+}
+
+function updateUrgency(e) {
+	var listIndex = findListIndex(retrieveListId(e));
+	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
+	console.log(globalLists[listIndex].urgent);
+}
+
+function deleteCard(e) {
+	var listIndex = findListIndex(retrieveListId(e));
+	globalLists.splice(listIndex, 1);
+	console.log(globalLists);
+	e.target.closest('article').remove();
 }

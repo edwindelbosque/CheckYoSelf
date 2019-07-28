@@ -20,8 +20,6 @@ class ToDoList {
 	updateTask() {
 		// update content
 	}
-
-	pushTask() { }
 }
 
 class Task {
