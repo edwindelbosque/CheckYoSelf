@@ -114,7 +114,7 @@ function displayCards(toDoList) {
 	var htmlBlock = `      
 	<article key="${toDoList.id}" >
 		<header>
-			<h2>${toDoList.title}</h2>
+			<h2 contenteditable>${toDoList.title}</h2>
 		</header>
 		<section class="card-main-section" id="main-content">
 			<ul>${pushTasksToDom(toDoList)}</ul >
@@ -240,3 +240,4 @@ function completeTask(e) {
 		: (e.target.closest('li').classList.remove('check-task-text'),
 			e.target.closest('img').classList.remove('check-task-icon'))
 }
+

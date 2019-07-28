@@ -327,14 +327,31 @@ article p {
   content: url("images/checkbox-active.svg");
 } 
 
-article p:hover {
-  border: dashed 2px var(--card-border);
-  transition: 0.25s;
-  background-color: #f7f7f7;
-}
 
 h2 {
   padding-top: 3px;
+  height: 33px;
+  border-radius: 4px;
+  border: 2px dashed rgba(0,0,0,0);
+}
+
+h2:hover,
+article p:hover {
+  background-color: rgba(126, 126, 126, 0.075);
+  border: dashed 2px var(--card-border);
+  transition: 0.25s;
+}
+
+h2:focus,
+article p:focus {
+  background-color: rgba(0,0,0,0);
+  border: dashed 2px var(--card-border);
+  transition: 0.25s;
+}
+
+h2, 
+p {
+  outline: none;
 }
 
 footer {
