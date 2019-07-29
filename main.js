@@ -1,5 +1,3 @@
-// querySelectors
-
 var buttonAddTask = document.querySelector('#button-add')
 var buttonClear = document.querySelector('#button-clear');
 var buttonMakeList = document.querySelector('#button-create');
@@ -11,19 +9,21 @@ var listItems = document.querySelector('#list-items');
 var navBar = document.querySelector('nav');
 var sideBar = document.querySelector('aside');
 
-// global variables
-
 var globalLists = [];
 var globalTasks = [];
-
-// event listeners
 
 cardArea.addEventListener('click', handleCardArea);
 navBar.addEventListener('keyup', handleNav);
 sideBar.addEventListener('click', handleSideBarButtons);
 sideBar.addEventListener('keyup', handleSideBarInputs);
+window.addEventListener('DOMContentLoaded', handlePageLoad);
 
-// event delegations
+function handlePageLoad() {
+	if (JSON.parse(localStorage.getItem("globalStorage"))) {
+		restoreGlobalLists();
+		recoverCards(globalLists);
+	}
+}
 
 function handleNav(e) {
 	e.preventDefault(e);
@@ -49,7 +49,7 @@ function handleSideBarButtons(e) {
 		addTask();
 		enableClear()
 	} else if (e.target.id === 'button-delete-item') {
-		deleteItem(e);
+		deleteTask(e);
 		enableMakeList();
 		enableClear()
 	} else if (e.target.id === 'button-create') {
@@ -77,8 +77,7 @@ function handleCardArea(e) {
 
 function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
-	var task = new Task({ id: Date.now(), text: taskInput, complete: false });
-
+	var task = ({ id: Date.now(), text: taskInput, complete: false });
 	globalTasks.push(task);
 	displayTask(task);
 }
@@ -112,21 +111,21 @@ function instantiateToDoList() {
 
 function displayCards(toDoList) {
 	var htmlBlock = `      
-	<article key="${toDoList.id}" >
+	<article key="${toDoList.id}" ${toDoList.urgent ? 'class="urgent-card"' : ''} >
 		<header>
 			<h2 contenteditable>${toDoList.title}</h2>
 		</header>
-		<section class="card-main-section" id="main-content">
+		<section class="card-main-section ${toDoList.urgent ? 'urgent-content' : ''}" id="main-content">
 			<ul>${pushTasksToDom(toDoList)}</ul >
 		</section >
 		<footer>
-			<button>
-				<img id="button-urgent" class="button-urgent" src="images/urgent.svg">
+			<button ${toDoList.urgent ? 'class="check-urgent-text"' : ''}>
+				<img id="button-urgent" class="button-urgent ${toDoList.urgent ? 'button-urgent-active' : ''}" src="images/urgent.svg">
 				<h6>URGENT</h6>
 			</button>
 			<button>
 				<img id="button-delete-card" class="button-delete-card" src="images/delete.svg">
-				<h6 class="delete-text-active">DELETE</h6>
+				<h6 class="delete-text-active ${toDoList.urgent ? 'urgent-buttons' : ''}">DELETE</h6>
 			</button>
 		</footer>
 	</article>`
@@ -142,8 +141,89 @@ function pushTasksToDom(toDoList) {
 	return taskList;
 }
 
-function repopulateLists() {
-	localStorage.getItem(listsArray);
+function restoreGlobalLists() {
+	var recoveredData = JSON.parse(localStorage.getItem('globalStorage')).map(function (toDo) {
+		return new ToDoList({ id: toDo.id, title: toDo.title, tasksArray: toDo.tasksArray, urgent: toDo.urgent });
+	});
+
+	globalLists = recoveredData;
+}
+
+function recoverCards(yesPlease) {
+	for (var i = 0; i < yesPlease.length; i++) {
+		displayCards(yesPlease[i]);
+	}
+}
+
+function deleteTask(e) {
+	e.target.parentNode.remove();
+	var taskIndex = findTaskIndex(retrieveTaskId(e, 'li'));
+	globalTasks.splice(taskIndex, 1);
+}
+
+function updateUrgency(e) {
+	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
+	var urgentStatus = globalLists[listIndex].urgent;
+	var listKey = retrieveListId(e, 'article');
+	var list = globalLists.find(function (list) {
+		return list.id === parseInt(listKey);
+	});
+	list.saveToStorage(globalLists);
+	styleUrgency(e, urgentStatus);
+};
+
+function styleUrgency(e, urgentStatus) {
+	urgentStatus
+		? (e.target.closest('article').classList.add('urgent-card'),
+			e.target.closest('article').querySelector('#main-content').classList.add('urgent-content'),
+			e.target.classList.add('button-urgent-active'),
+			e.target.closest('footer').querySelector('.delete-text-active').classList.add('urgent-buttons'),
+			e.target.closest('button').classList.add('check-urgent-text'))
+		: (e.target.closest('article').classList.remove('urgent-card'),
+			e.target.closest('article').querySelector('#main-content').classList.remove('urgent-content'),
+			e.target.classList.remove('button-urgent-active'),
+			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('urgent-buttons'),
+			e.target.closest('button').classList.remove('check-urgent-text'))
+}
+
+function completeTask(e) { // need to fix this mess
+	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	var taskId = retrieveTaskId(e, 'li');
+
+	var taskIndex = globalLists[listIndex].tasksArray.findIndex(function (task) {
+		return task.id === parseInt(taskId);
+	})
+
+	globalLists[listIndex].tasksArray[taskIndex].complete //doesn't work if I assigned them variables
+		= !globalLists[listIndex].tasksArray[taskIndex].complete;
+
+	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
+
+	globalLists[listIndex].tasksArray[taskIndex].complete
+		? (e.target.closest('li').classList.add('check-task-text'),
+			e.target.closest('img').classList.add('check-task-icon'))
+		: (e.target.closest('li').classList.remove('check-task-text'),
+			e.target.closest('img').classList.remove('check-task-icon'))
+}
+
+function deleteHandler(e) {
+	var checkArray = [];
+	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	var tasks = globalLists[listIndex].tasksArray;
+
+	for (var i = 0; i < tasks.length; i++) {
+		checkArray.push(tasks[i].complete);
+	}
+
+	checkArray.includes(false) ? console.log('complete tasks first!') : deleteCard(e);
+}
+
+function deleteCard(e) {
+	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	globalLists.splice(listIndex, 1);
+	console.log(globalLists);
+	e.target.closest('article').remove();
 }
 
 function clearAll() {
@@ -170,12 +250,6 @@ function enableMakeList() {
 		: (buttonMakeList.disabled = false);
 }
 
-function deleteItem(e) {
-	e.target.parentNode.remove();
-	var taskIndex = findTaskIndex(retrieveTaskId(e, 'li'));
-	globalTasks.splice(taskIndex, 1);
-}
-
 function retrieveTaskId(e, location) {
 	var taskId = e.target.closest(location).getAttribute('key');
 	return taskId;
@@ -196,63 +270,4 @@ function findListIndex(listId) {
 	return globalLists.findIndex(function (list) {
 		return list.id === parseInt(listId);
 	})
-}
-
-function updateUrgency(e) {
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
-	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
-	var urgentStatus = globalLists[listIndex].urgent;
-
-	urgentStatus
-		? (e.target.closest('article').classList.add('urgent-card'),
-			e.target.closest('article').querySelector('#main-content').classList.add('urgent-content'),
-			e.target.classList.add('button-urgent-active'),
-			e.target.closest('footer').querySelector('.delete-text-active').classList.add('urgent-buttons'),
-			e.target.closest('button').classList.add('check-urgent-text'))
-		: (e.target.closest('article').classList.remove('urgent-card'),
-			e.target.closest('article').querySelector('#main-content').classList.remove('urgent-content'),
-			e.target.classList.remove('button-urgent-active'),
-			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('urgent-buttons'),
-			e.target.closest('button').classList.remove('check-urgent-text'))
-}
-
-function deleteCard(e) {
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
-	globalLists.splice(listIndex, 1);
-	console.log(globalLists);
-	e.target.closest('article').remove();
-}
-
-function completeTask(e) {
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
-	var taskId = retrieveTaskId(e, 'li');
-
-	var taskIndex = globalLists[listIndex].tasksArray.findIndex(function (task) {
-		return task.id === parseInt(taskId);
-	})
-
-	globalLists[listIndex].tasksArray[taskIndex].complete
-		= !globalLists[listIndex].tasksArray[taskIndex].complete;
-
-	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
-
-	globalLists[listIndex].tasksArray[taskIndex].complete
-		? (e.target.closest('li').classList.add('check-task-text'),
-			e.target.closest('img').classList.add('check-task-icon'))
-		: (e.target.closest('li').classList.remove('check-task-text'),
-			e.target.closest('img').classList.remove('check-task-icon'))
-}
-
-function deleteHandler(e) {
-	var checkArray = [];
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
-	var tasks = globalLists[listIndex].tasksArray;
-
-	for (var i = 0; i < tasks.length; i++) {
-		checkArray.push(tasks[i].complete);
-	}
-	if (checkArray.includes(false)) {
-		console.log('do not delete');
-	} else
-		deleteCard(e);
 }
