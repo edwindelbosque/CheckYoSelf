@@ -213,6 +213,7 @@ aside input {
   background-color: #525461;
   transition: 0.25s;
   pointer-events: none;
+  border: 2px solid rgb(61, 61, 61);
 }
 
 .add-form button:hover {
@@ -271,6 +272,7 @@ aside ul img:hover {
 
 .aside-bottom button {
   margin-top: 25px;
+  margin-bottom: 40px;
 }
 
 /* CARD AREA section */
@@ -287,7 +289,6 @@ aside ul img:hover {
   background: var(--urgent-background);
   border: 2px solid var(--urgent-border-active);
   display: inline-block;
-  margin: 0.25rem;
   margin-bottom: 1.75rem;
   width: 100%;
 }
@@ -296,10 +297,10 @@ article {
   background: var(--background-card);
   border: 2px solid var(--card-border);
   display: inline-block;
-  margin: 0.25rem;
   margin-bottom: 1.75rem;
   width: 100%;
   box-shadow: 0 0 12px #d8d8d8;
+  border-radius: 3px;
 }
 
 article:hover {
@@ -427,6 +428,11 @@ article li img:hover {
   content:url("images/checkbox-active.svg");
 }
 
+aside {
+  background-color: var(--background-green);
+  height: auto;
+}
+
 .button-urgent-active {
   content:url("images/urgent-active.svg");
 }
@@ -451,19 +457,52 @@ article li img:hover {
     border-color: var(--background-blue);
   }
 
+  aside p {
+    padding: 10px 7px;
+    font-size: 30px;
+  }
+
+  aside img {
+    height: 42px;
+  }
+
+  aside ul {
+    width: 100%
+  }
+
+  label {
+    font-size: 28px;
+  }
+
+  nav img {
+    height: 70px;
+    padding: 17px 0;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+
+  nav input {
+    height: 70px;
+    font-size: 30px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
   nav {
     flex-direction: column;
-    height: 140px;
+    height: 160px;
     justify-content: space-evenly;
   }
 
   h1 {
+    font-size: 40px;
     margin: 0;
   }
 
   nav form {
     margin: 0;
     width: 90%;
+    height: 70px;
   }
 
   aside {
@@ -472,5 +511,74 @@ article li img:hover {
 
   main {
     flex-direction: column;
+  }
+
+  aside input {
+    height: 70px;
+    font-size: 30px;
+    border-radius: 12px;
+  }
+
+  input::placeholder {
+    font-size: 30px;
+  }
+
+  .button-sidebar {
+    height: 70px;
+    font-size: 30px;
+    border-radius: 12px;
+  }
+
+  .add-form button {
+    height: 70px;
+    width: 85px;
+    font-size: 70px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .add-form input {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+
+  .card-area {
+    padding: 12px;
+    column-width: 22em;
+  }
+
+  header {
+    height: 60px;
+    font-size: 24px;
+  }
+
+  article {
+    border-radius: 8px;
+  }
+
+  article li img {
+    height: 37px;
+    margin: 12px 5px 0 15px;
+  }
+
+  article ul {
+    margin: 20px 0;
+  }
+
+  article p {
+    font-size: 30px;
+    padding: 8px;
+  }
+
+  footer img {
+    height: 42px;
+  }
+
+  h6 {
+    font-size: 18px;
+  }
+
+  footer {
+    height: 90px;
   }
 }
