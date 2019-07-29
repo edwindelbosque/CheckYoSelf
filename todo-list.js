@@ -10,10 +10,20 @@ class ToDoList {
 		localStorage.setItem("globalStorage", JSON.stringify(globalLists));
 	}
 
-	deleteFromStorage() { }
+	deleteFromStorage(globalLists) {
+		var listId = this.id;
+		var index = globalLists.findIndex(function (list) {
+			return parseInt(list.id) === listId;
+		});
 
-	updateToDo() {
+		globalLists.splice(index, 1);
+		this.saveToStorage(globalLists);
+	}
+
+	updateToDo(globalLists) {
 		// title and urgency
+		this.urgent = !this.urgent;
+		this.saveToStorage(globalLists);
 	}
 
 	updateTask() {

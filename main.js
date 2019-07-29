@@ -174,10 +174,9 @@ function pushTasksToDom(toDoList) {
 
 function updateUrgency(e) {
 	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
-	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
+	globalLists[listIndex].updateToDo(globalLists);
 	var urgentStatus = globalLists[listIndex].urgent;
 	styleUrgency(e, urgentStatus);
-	checkPoint(e);
 };
 
 function styleUrgency(e, urgentStatus) {
@@ -233,8 +232,8 @@ function deleteHandler(e) {
 
 function deleteCard(e) {
 	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
-	globalLists.splice(listIndex, 1);
-	console.log(globalLists);
+
+	globalLists[listIndex].deleteFromStorage(globalLists)
 	e.target.closest('article').remove();
 }
 
