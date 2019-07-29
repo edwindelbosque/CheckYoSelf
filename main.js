@@ -136,7 +136,14 @@ function pushTasksToDom(toDoList) {
 	var taskList = '';
 	for (var i = 0; i < toDoList.tasksArray.length; i++) {
 		taskList +=
-			`<li key="${toDoList.tasksArray[i].id}" contenteditable><img src="images/checkbox.svg" id="button-complete"><p>${toDoList.tasksArray[i].text}</p></li>`
+			`<li key="
+			${toDoList.tasksArray[i].id}" 
+			${toDoList.tasksArray[i].complete
+				? 'class="check-task-text"' : ''} 
+				contenteditable><img src="images/checkbox.svg" id="button-complete" 
+				${toDoList.tasksArray[i].complete
+				? 'class="check-task-icon"' : ''}><p>
+					${toDoList.tasksArray[i].text}</p></li>`
 	}
 	return taskList;
 }
