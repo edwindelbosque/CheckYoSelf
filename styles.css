@@ -540,6 +540,7 @@ aside {
   .card-area {
     padding: 12px;
     column-width: 22em;
+    padding-top: 35px;
   }
 
   header {
