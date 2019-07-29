@@ -165,12 +165,8 @@ function updateUrgency(e) {
 	var listIndex = findListIndex(retrieveListId(e, 'article'));
 	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
 	var urgentStatus = globalLists[listIndex].urgent;
-	var listKey = retrieveListId(e, 'article');
-	var list = globalLists.find(function (list) {
-		return list.id === parseInt(listKey);
-	});
-	list.saveToStorage(globalLists);
 	styleUrgency(e, urgentStatus);
+	checkPoint(e);
 };
 
 function styleUrgency(e, urgentStatus) {
@@ -198,9 +194,22 @@ function completeTask(e) { // need to fix this mess
 	globalLists[listIndex].tasksArray[taskIndex].complete //doesn't work if I assigned them variables
 		= !globalLists[listIndex].tasksArray[taskIndex].complete;
 
-	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
+	checkPoint(e);
 
-	globalLists[listIndex].tasksArray[taskIndex].complete
+	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
+	styleCompletedTask(e, globalLists[listIndex].tasksArray[taskIndex].complete);
+}
+
+function checkPoint(e) {
+	var listKey = retrieveListId(e, 'article');
+	var list = globalLists.find(function (list) {
+		return list.id === parseInt(listKey);
+	});
+	list.saveToStorage(globalLists);
+}
+
+function styleCompletedTask(e, complete) {
+	complete
 		? (e.target.closest('li').classList.add('check-task-text'),
 			e.target.closest('img').classList.add('check-task-icon'))
 		: (e.target.closest('li').classList.remove('check-task-text'),
