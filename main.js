@@ -96,7 +96,7 @@ function restoreDOM() {
 
 function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
-	var task = ({ id: Date.now(), text: taskInput, complete: false });
+	var task = new Task({ id: Date.now(), text: taskInput, complete: false });
 	globalTasks.push(task);
 	displayTask(task);
 }
@@ -201,11 +201,10 @@ function completeTask(e) { // need to fix this mess
 		return task.id === parseInt(taskId);
 	})
 
-	globalLists[listIndex].tasksArray[taskIndex].complete //doesn't work if I assigned them variables
-		= !globalLists[listIndex].tasksArray[taskIndex].complete;
+	globalLists[listIndex].tasksArray[taskIndex].complete =
+		!globalLists[listIndex].tasksArray[taskIndex].complete;
 
 	checkPoint(e);
-
 	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
 	styleCompletedTask(e, globalLists[listIndex].tasksArray[taskIndex].complete);
 }

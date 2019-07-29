@@ -441,6 +441,16 @@ article li img:hover {
 
 @media only screen and (max-width: 730px) {
 
+  .button-sidebar:hover {
+    background-color: var(--background-blue);
+    border: 0;
+  }
+
+  .add-form button:hover {
+    background-color: var(--background-blue);
+    border-color: var(--background-blue);
+  }
+
   nav {
     flex-direction: column;
     height: 140px;
