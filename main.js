@@ -18,12 +18,7 @@ sideBar.addEventListener('click', handleSideBarButtons);
 sideBar.addEventListener('keyup', handleSideBarInputs);
 window.addEventListener('DOMContentLoaded', handlePageLoad);
 
-function handlePageLoad() {
-	if (JSON.parse(localStorage.getItem("globalStorage"))) {
-		restoreGlobalLists();
-		recoverCards(globalLists);
-	}
-}
+// EVENT DELEGATIONS
 
 function handleNav(e) {
 	e.preventDefault(e);
@@ -53,8 +48,9 @@ function handleSideBarButtons(e) {
 		enableMakeList();
 		enableClear()
 	} else if (e.target.id === 'button-create') {
-		instantiateToDoList(e);
+		createToDoList(e);
 		enableClear();
+		enableMakeList();
 	} else if (e.target.id === 'button-clear') {
 		clearAll();
 		enableAdd();
@@ -75,6 +71,29 @@ function handleCardArea(e) {
 	}
 }
 
+// FUNCTIONS
+
+function handlePageLoad() {
+	if (JSON.parse(localStorage.getItem("globalStorage"))) {
+		restoreData();
+		restoreDOM();
+	}
+}
+
+function restoreData() {
+	var recoveredData = JSON.parse(localStorage.getItem('globalStorage')).map(function (toDo) {
+		return new ToDoList({ id: toDo.id, title: toDo.title, tasksArray: toDo.tasksArray, urgent: toDo.urgent });
+	});
+
+	globalLists = recoveredData;
+}
+
+function restoreDOM() {
+	for (var i = 0; i < globalLists.length; i++) {
+		displayCards(globalLists[i]);
+	}
+}
+
 function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
 	var task = ({ id: Date.now(), text: taskInput, complete: false });
@@ -82,17 +101,23 @@ function addTask() {
 	displayTask(task);
 }
 
-function displayTask(object) {
+function displayTask(task) {
 	listItems.insertAdjacentHTML(
 		'beforeend',
-		`<li key="${object.id}"><img id="button-delete-item" src="images/delete.svg"><p>${object.text}</p></li>`
+		`<li key="${task.id}"><img id="button-delete-item" src="images/delete.svg"><p>${task.text}</p></li>`
 	);
 	document.querySelector('#input-item').value = '';
 	enableAdd();
 	enableMakeList();
 }
 
-function instantiateToDoList() {
+function deleteTask(e) {
+	e.target.parentNode.remove();
+	var taskIndex = findIndex(retrieveId(e, 'li'), globalTasks);
+	globalTasks.splice(taskIndex, 1);
+}
+
+function createToDoList() {
 	var toDoList = new ToDoList({
 		id: Date.now(),
 		title: document.querySelector('#input-title').value,
@@ -101,11 +126,10 @@ function instantiateToDoList() {
 	});
 
 	globalLists.push(toDoList);
+	displayCards(toDoList);
 	toDoList.saveToStorage(globalLists);
 	displaySidebarItems.innerHTML = '';
 	inputTitle.value = '';
-	displayCards(toDoList);
-	enableMakeList();
 	globalTasks = [];
 }
 
@@ -148,28 +172,8 @@ function pushTasksToDom(toDoList) {
 	return taskList;
 }
 
-function restoreGlobalLists() {
-	var recoveredData = JSON.parse(localStorage.getItem('globalStorage')).map(function (toDo) {
-		return new ToDoList({ id: toDo.id, title: toDo.title, tasksArray: toDo.tasksArray, urgent: toDo.urgent });
-	});
-
-	globalLists = recoveredData;
-}
-
-function recoverCards(yesPlease) {
-	for (var i = 0; i < yesPlease.length; i++) {
-		displayCards(yesPlease[i]);
-	}
-}
-
-function deleteTask(e) {
-	e.target.parentNode.remove();
-	var taskIndex = findTaskIndex(retrieveTaskId(e, 'li'));
-	globalTasks.splice(taskIndex, 1);
-}
-
 function updateUrgency(e) {
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
 	globalLists[listIndex].urgent = !globalLists[listIndex].urgent;
 	var urgentStatus = globalLists[listIndex].urgent;
 	styleUrgency(e, urgentStatus);
@@ -191,8 +195,8 @@ function styleUrgency(e, urgentStatus) {
 }
 
 function completeTask(e) { // need to fix this mess
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
-	var taskId = retrieveTaskId(e, 'li');
+	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
+	var taskId = retrieveId(e, 'li');
 
 	var taskIndex = globalLists[listIndex].tasksArray.findIndex(function (task) {
 		return task.id === parseInt(taskId);
@@ -207,14 +211,6 @@ function completeTask(e) { // need to fix this mess
 	styleCompletedTask(e, globalLists[listIndex].tasksArray[taskIndex].complete);
 }
 
-function checkPoint(e) {
-	var listKey = retrieveListId(e, 'article');
-	var list = globalLists.find(function (list) {
-		return list.id === parseInt(listKey);
-	});
-	list.saveToStorage(globalLists);
-}
-
 function styleCompletedTask(e, complete) {
 	complete
 		? (e.target.closest('li').classList.add('check-task-text'),
@@ -225,7 +221,7 @@ function styleCompletedTask(e, complete) {
 
 function deleteHandler(e) {
 	var checkArray = [];
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
 	var tasks = globalLists[listIndex].tasksArray;
 
 	for (var i = 0; i < tasks.length; i++) {
@@ -236,10 +232,29 @@ function deleteHandler(e) {
 }
 
 function deleteCard(e) {
-	var listIndex = findListIndex(retrieveListId(e, 'article'));
+	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
 	globalLists.splice(listIndex, 1);
 	console.log(globalLists);
 	e.target.closest('article').remove();
+}
+
+function checkPoint(e) {
+	var listId = retrieveId(e, 'article');
+	var list = globalLists.find(function (list) {
+		return list.id === parseInt(listId);
+	});
+	list.saveToStorage(globalLists);
+}
+
+function retrieveId(e, location) {
+	var taskId = e.target.closest(location).getAttribute('key');
+	return taskId;
+};
+
+function findIndex(taskId, globalArray) {
+	return globalArray.findIndex(function (task) {
+		return task.id === parseInt(taskId);
+	})
 }
 
 function clearAll() {
@@ -264,26 +279,4 @@ function enableMakeList() {
 	!inputTitle.value || !displaySidebarItems.innerHTML
 		? (buttonMakeList.disabled = true)
 		: (buttonMakeList.disabled = false);
-}
-
-function retrieveTaskId(e, location) {
-	var taskId = e.target.closest(location).getAttribute('key');
-	return taskId;
-};
-
-function findTaskIndex(taskId) {
-	return globalTasks.findIndex(function (task) {
-		return task.id === parseInt(taskId);
-	})
-}
-
-function retrieveListId(e, location) {
-	var listId = e.target.closest(location).getAttribute('key');
-	return listId;
-}
-
-function findListIndex(listId) {
-	return globalLists.findIndex(function (list) {
-		return list.id === parseInt(listId);
-	})
 }
