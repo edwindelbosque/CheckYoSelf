@@ -30,11 +30,3 @@ class ToDoList {
 		// update content
 	}
 }
-
-class Task {
-	constructor(task) {
-		this.id = task.id;
-		this.text = task.text;
-		this.complete = task.complete;
-	}
-}

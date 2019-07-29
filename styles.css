@@ -341,8 +341,7 @@ h2 {
   border: 2px dashed rgba(0,0,0,0);
 }
 
-h2:hover,
-article p:hover {
+h2:hover {
   background-color: rgba(126, 126, 126, 0.075);
   border: dashed 2px var(--card-border);
   transition: 0.25s;
@@ -354,8 +353,7 @@ li:focus {
   outline: none;
 }
 
-h2:focus,
-article p:focus {
+h2:focus {
   background-color: rgba(0,0,0,0);
   border: dashed 2px var(--card-border);
   transition: 0.25s;
@@ -424,10 +422,6 @@ article li img {
   height: 23px;
 }
 
-article li img:hover {
-  content:url("images/checkbox-active.svg");
-}
-
 aside {
   background-color: var(--background-green);
   height: auto;
@@ -437,9 +431,10 @@ aside {
   content:url("images/urgent-active.svg");
 }
 
-.button-urgent:hover {
+/* .button-urgent:hover {
   content:url("images/urgent-active.svg");
 }
+*/
 
 .button-delete-card:hover {
   content:url("images/delete-active.svg");
@@ -550,6 +545,28 @@ aside {
   header {
     height: 60px;
     font-size: 24px;
+  }
+
+  h2 {
+    padding-top: 5px;
+    height: 53px; 
+    width: 100%;
+    border: dashed 3px rgba(0,0,0,0);
+    border-radius: 8px;
+    transition: 0.25s;
+  }
+
+  h2:hover {
+    background-color: rgba(126, 126, 126, 0);
+    border: dashed 3px rgba(126, 126, 126, 0);
+    border-radius: 8px;
+  }
+
+  h2:focus {
+    background-color: rgba(0,0,0,0);
+    border: dashed 3px var(--card-border);
+    transition: 0.25s;
+    border-radius: 8px;
   }
 
   article {

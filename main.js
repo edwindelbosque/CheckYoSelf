@@ -96,7 +96,7 @@ function restoreDOM() {
 
 function addTask() {
 	var taskInput = document.querySelector('#input-item').value;
-	var task = new Task({ id: Date.now(), text: taskInput, complete: false });
+	var task = ({ id: Date.now(), text: taskInput, complete: false });
 	globalTasks.push(task);
 	displayTask(task);
 }
@@ -164,7 +164,7 @@ function pushTasksToDom(toDoList) {
 			${toDoList.tasksArray[i].id}" 
 			${toDoList.tasksArray[i].complete
 				? 'class="check-task-text"' : ''} 
-				contenteditable><img src="images/checkbox.svg" id="button-complete" 
+				><img src="images/checkbox.svg" id="button-complete" 
 				${toDoList.tasksArray[i].complete
 				? 'class="check-task-icon"' : ''}><p>
 					${toDoList.tasksArray[i].text}</p></li>`
