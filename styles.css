@@ -94,6 +94,7 @@ nav input {
 main {
   display: flex;
   flex-direction: row;
+  min-height:  -webkit-fill-available;
 }
 
 /* SIDEBAR section */
@@ -213,7 +214,7 @@ aside input {
   background-color: #525461;
   transition: 0.25s;
   pointer-events: none;
-  border: 2px solid rgb(61, 61, 61);
+  border: 2px solid #3d3d3d;
 }
 
 .add-form button:hover {
@@ -447,6 +448,10 @@ aside {
 
 @media only screen and (max-width: 730px) {
 
+  main {
+    min-height: auto;
+  }
+
   .button-sidebar:hover {
     background-color: var(--background-blue);
     border: 0;
@@ -458,12 +463,12 @@ aside {
   }
 
   aside p {
-    padding: 10px 7px;
-    font-size: 30px;
+    padding: 12px;
+    font-size: 25px;
   }
 
   aside img {
-    height: 42px;
+    height: 48px;
   }
 
   aside ul {
@@ -471,26 +476,26 @@ aside {
   }
 
   label {
-    font-size: 28px;
+    font-size: 25px;
   }
 
   nav img {
-    height: 70px;
-    padding: 17px 0;
+    height: 55px;
+    padding: 14px 0;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
   }
 
   nav input {
-    height: 70px;
-    font-size: 30px;
+    height: 55px;
+    font-size: 25px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
   }
 
   nav {
     flex-direction: column;
-    height: 160px;
+    height: 130px;
     justify-content: space-evenly;
   }
 
@@ -502,7 +507,7 @@ aside {
   nav form {
     margin: 0;
     width: 90%;
-    height: 70px;
+    height: 55px;
   }
 
   aside {
@@ -514,27 +519,35 @@ aside {
   }
 
   aside input {
-    height: 70px;
-    font-size: 30px;
+    height: 60px;
+    font-size: 25px;
     border-radius: 12px;
+    border: solid 3px;
   }
 
   input::placeholder {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .button-sidebar {
-    height: 70px;
-    font-size: 30px;
+    height: 60px;
+    font-size: 25px;
     border-radius: 12px;
   }
 
+  .button-sidebar:disabled {
+    border: solid 3px #3d3d3d;
+  }
+
   .add-form button {
-    height: 70px;
-    width: 85px;
-    font-size: 70px;
+    height: 60px;
+    width: 70px;
+    font-size: 60px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
+    border-top: 3px solid #1F1F3D;
+    border-right: 3px solid #1F1F3D;
+    border-bottom: 3px solid #1F1F3D;
   }
 
   .add-form input {
@@ -550,12 +563,12 @@ aside {
 
   header {
     height: 60px;
-    font-size: 24px;
   }
 
   h2 {
-    padding-top: 5px;
+    padding-top: 8px;
     height: 53px; 
+    font-size: 32px;
     width: 100%;
     border: dashed 3px rgba(0,0,0,0);
     border-radius: 8px;
@@ -580,8 +593,8 @@ aside {
   }
 
   article li img {
-    height: 37px;
-    margin: 12px 5px 0 15px;
+    height: 34px;
+    margin: 10px 2px 0 15px;
   }
 
   article ul {
@@ -589,7 +602,7 @@ aside {
   }
 
   article p {
-    font-size: 30px;
+    font-size: 25px;
     padding: 8px;
   }
 

@@ -166,7 +166,7 @@ function pushTasksToDom(toDoList) {
 	var taskList = '';
 	for (var i = 0; i < toDoList.tasksArray.length; i++) {
 		taskList +=
-			`<li key="
+			`<li class="task" key="
 			${toDoList.tasksArray[i].id}" 
 			${toDoList.tasksArray[i].complete
 				? 'class="check-task-text"' : ''} 
@@ -198,6 +198,16 @@ function styleUrgency(e, urgentStatus) {
 			e.target.classList.remove('button-urgent-active'),
 			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('urgent-buttons'),
 			e.target.closest('button').classList.remove('check-urgent-text'))
+}
+
+function getTasksIntoGlobal() {
+	var allTasks = document.querySelectorAll('.task');
+	array = [];
+	allTasks.forEach(function (li) {
+		id = li.id;
+		text = li.innerText;
+		complete = false;
+	});
 }
 
 function completeTask(e) { // need to fix this mess
