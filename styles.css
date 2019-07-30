@@ -108,6 +108,7 @@ aside {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  min-width: fit-content;
 }
 
 .aside-top {
@@ -553,6 +554,10 @@ aside {
   .add-form input {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
+  }
+
+  #prioritize {
+    margin-bottom: 40px;
   }
 
   .card-area {

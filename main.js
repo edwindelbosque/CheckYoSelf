@@ -203,16 +203,34 @@ function styleUrgency(e, urgentStatus) {
 }
 
 function filterByUrgency() {
+	var filterText = document.querySelector('#button-filter');
 	document.querySelector('.card-area').innerHTML = '';
 	var urgentCards = globalLists.filter(function (list) {
 		return list.urgent === true;
 	});
-
-	if (!urgentCards.length) {
-		document.querySelector('#button-filter').insertAdjacentHTML('afterend', '<p id="prioritize">prioritize some cards!</p>')
-	} else {
-		for (var i = 0; i < urgentCards.length; i++) {
-			displayCards(urgentCards[i]);
+	if (filterText.getAttribute('state') === "off") {
+		filterText.setAttribute('state', 'on');
+		document.querySelector('#button-filter').innerHTML = 'Show All Cards';
+		if (!urgentCards.length) {
+			document.querySelector('#prioritize')
+				? ''
+				: document.querySelector('#button-filter').insertAdjacentHTML('afterend', '<p id="prioritize">prioritize some cards!</p>')
+		} else {
+			for (var i = 0; i < urgentCards.length; i++) {
+				displayCards(urgentCards[i]);
+				if (document.querySelector('#prioritize')) {
+					document.querySelector('#prioritize').remove()
+				}
+			}
+		}
+	} else if (filterText.getAttribute('state') === "on") {
+		filterText.setAttribute('state', 'off');
+		document.querySelector('#button-filter').innerHTML = 'Filter by Urgency';
+		if (document.querySelector('#prioritize')) {
+			document.querySelector('#prioritize').remove()
+		}
+		for (var i = 0; i < globalLists.length; i++) {
+			displayCards(globalLists[i]);
 		}
 	}
 }
