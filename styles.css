@@ -93,7 +93,7 @@ nav input {
 main {
   display: flex;
   flex-direction: row;
-  min-height:  -webkit-fill-available;
+  min-height: -webkit-fill-available;
 }
 
 /* SIDEBAR section */
@@ -122,7 +122,7 @@ label {
   color: var(--label);
   font-weight: bold;
   margin: 30px 0 10px 0;
-  font-size: 18px
+  font-size: 18px;
 }
 
 aside form {
@@ -148,13 +148,13 @@ aside form {
 
 .button-sidebar:hover {
   background-color: var(--urgent-button);
-  transition: 0.20s;
+  transition: 0.25s;
   border: solid 2px var(--filter-border);
 }
 
 .button-sidebar:active {
   background-color: var(--urgent-active);
-  transition: 0.20s;
+  transition: 0.25s;
   border: solid 2px var(--filter-border);
 }
 
@@ -187,7 +187,7 @@ input::placeholder {
 .add-form input {
   border-radius: 0;
   border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px
+  border-bottom-left-radius: 3px;
 }
 
 .add-form button {
@@ -306,7 +306,7 @@ article {
 
 article:hover {
   box-shadow: 0 0 25px #cecece;
-  transition: 0.3s
+  transition: 0.25s;
 }
 
 header {
@@ -320,11 +320,11 @@ h2 {
   padding-top: 3px;
   height: 33px;
   border-radius: 4px;
-  border: 2px dashed rgba(0,0,0,0);
+  border: 2px dashed #00000000;
 }
 
 h2:hover {
-  background-color: rgba(126, 126, 126, 0.075);
+  background-color: #7e7e7e13;
   border: dashed 2px var(--card-border);
   transition: 0.25s;
 }
@@ -336,7 +336,7 @@ li:focus {
 }
 
 h2:focus {
-  background-color: rgba(0,0,0,0);
+  background-color: #00000000;
   border: dashed 2px var(--card-border);
   transition: 0.25s;
 }
@@ -366,7 +366,7 @@ article li img {
 
 ul {
   list-style: none;
-  width: 95%
+  width: 95%;
 }
 
 article ul {
@@ -377,7 +377,7 @@ article p {
   margin: 0.2rem 0;
   font-size: 22px;
   border-radius: 5px;
-  border: dashed 2px rgba(0,0,0,0);
+  border: dashed 2px #00000000;
   padding: 5px;
 }
 
@@ -503,7 +503,7 @@ footer p {
   }
   
   aside ul {
-    width: 100%
+    width: 100%;
   }
   
   aside p {
@@ -572,19 +572,19 @@ footer p {
     height: 53px; 
     font-size: 32px;
     width: 100%;
-    border: dashed 3px rgba(0,0,0,0);
+    border: dashed 3px #00000000;
     border-radius: 8px;
     transition: 0.25s;
   }
 
   h2:hover {
-    background-color: rgba(126, 126, 126, 0);
-    border: dashed 3px rgba(126, 126, 126, 0);
+    background-color: #7e7e7e00;
+    border: dashed 3px #7e7e7e00;
     border-radius: 8px;
   }
 
   h2:focus {
-    background-color: rgba(0,0,0,0);
+    background-color: #00000000;
     border: dashed 3px var(--card-border);
     transition: 0.25s;
     border-radius: 8px;
