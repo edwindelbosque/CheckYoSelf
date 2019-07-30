@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', handlePageLoad);
 function handleNav(e) {
 	e.preventDefault(e);
 	if (e.target.id === 'input-search') {
+		filterBySearch();
 		deleteAlertMessage();
 	}
 }
@@ -213,6 +214,18 @@ function filterByUrgency() {
 		for (var i = 0; i < urgentCards.length; i++) {
 			displayCards(urgentCards[i]);
 		}
+	}
+}
+
+function filterBySearch() {
+	document.querySelector('.card-area').innerHTML = '';
+	var inputSearch = document.querySelector('#input-search').value.toLowerCase();
+	var matchingCards = globalLists.filter(function (list) {
+		return list.title.toLowerCase().includes(inputSearch);
+	})
+
+	for (var i = 0; i < matchingCards.length; i++) {
+		displayCards(matchingCards[i]);
 	}
 }
 
