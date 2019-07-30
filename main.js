@@ -225,6 +225,7 @@ function filterByUrgency() {
 		}
 	} else if (filterText.getAttribute('state') === "on") {
 		filterText.setAttribute('state', 'off');
+		document.querySelector('#input-search').value = '';
 		document.querySelector('#button-filter').innerHTML = 'Filter by Urgency';
 		if (document.querySelector('#prioritize')) {
 			document.querySelector('#prioritize').remove()
@@ -277,7 +278,6 @@ function completeTask(e) { // need to fix this mess
 		!globalLists[listIndex].tasksArray[taskIndex].complete;
 
 	checkPoint(e);
-	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
 	styleCompletedTask(e, globalLists[listIndex].tasksArray[taskIndex].complete);
 	deleteAlertMessage();
 }
@@ -304,7 +304,7 @@ function deleteHandler(e) {
 
 function errorMessage(e) {
 	e.target.closest('footer').querySelector('#delete-message')
-		? console.log('nope')
+		? ''
 		: e.target.closest('footer').querySelector('#error-message').insertAdjacentHTML('afterend', `<p id="delete-message">finish all <br /> tasks first!</p>`)
 }
 
