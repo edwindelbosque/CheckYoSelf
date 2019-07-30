@@ -61,6 +61,7 @@ function handleSideBarButtons(e) {
 		enableAdd();
 		deleteAlertMessage();
 	} else if (e.target.id === 'button-filter') {
+		filterByUrgency();
 	}
 }
 
@@ -198,6 +199,21 @@ function styleUrgency(e, urgentStatus) {
 			e.target.classList.remove('button-urgent-active'),
 			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('urgent-buttons'),
 			e.target.closest('button').classList.remove('check-urgent-text'))
+}
+
+function filterByUrgency() {
+	document.querySelector('.card-area').innerHTML = '';
+	var urgentCards = globalLists.filter(function (list) {
+		return list.urgent === true;
+	});
+
+	if (!urgentCards.length) {
+		document.querySelector('#button-filter').insertAdjacentHTML('afterend', '<p id="prioritize">prioritize some cards!</p>')
+	} else {
+		for (var i = 0; i < urgentCards.length; i++) {
+			displayCards(urgentCards[i]);
+		}
+	}
 }
 
 function getTasksIntoGlobal() {
