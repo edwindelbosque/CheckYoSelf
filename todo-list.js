@@ -6,27 +6,26 @@ class ToDoList {
 		this.urgent = toDo.urgent || false;
 	}
 
-	saveToStorage(globalLists) {
-		localStorage.setItem("globalStorage", JSON.stringify(globalLists));
+	saveToStorage(masterArray) {
+		localStorage.setItem("globalStorage", JSON.stringify(masterArray));
 	}
 
-	deleteFromStorage(globalLists) {
+	deleteFromStorage(masterArray) {
 		var listId = this.id;
-		var index = globalLists.findIndex(function (list) {
+		var index = masterArray.findIndex(function (list) {
 			return parseInt(list.id) === listId;
 		});
 
-		globalLists.splice(index, 1);
-		this.saveToStorage(globalLists);
+		masterArray.splice(index, 1);
+		this.saveToStorage(masterArray);
 	}
 
-	updateToDo(globalLists) {
+	updateToDo(masterArray) {
 		// title and urgency
 		this.urgent = !this.urgent;
-		this.saveToStorage(globalLists);
+		this.saveToStorage(masterArray);
 	}
 
 	updateTask() {
-		// update content
 	}
 }
