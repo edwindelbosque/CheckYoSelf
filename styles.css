@@ -386,6 +386,11 @@ footer img {
   margin-bottom: 5px;
 }
 
+footer p {
+  text-align: center;
+  color: var(--urgent-active)
+}
+
 ul {
   list-style: none;
   width: 95%

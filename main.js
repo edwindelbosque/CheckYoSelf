@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', handlePageLoad);
 function handleNav(e) {
 	e.preventDefault(e);
 	if (e.target.id === 'input-search') {
+		deleteAlertMessage();
 	}
 }
 
@@ -31,10 +32,12 @@ function handleSideBarInputs(e) {
 	if (e.target.id === 'input-title') {
 		enableMakeList();
 		enableClear();
+		deleteAlertMessage();
 	}
 	else if (e.target.id === 'input-item') {
 		enableAdd();
 		enableClear();
+		deleteAlertMessage();
 	}
 }
 
@@ -43,6 +46,7 @@ function handleSideBarButtons(e) {
 	if (e.target.id === 'button-add') {
 		addTask();
 		enableClear()
+		deleteAlertMessage();
 	} else if (e.target.id === 'button-delete-item') {
 		deleteTask(e);
 		enableMakeList();
@@ -51,9 +55,11 @@ function handleSideBarButtons(e) {
 		createToDoList(e);
 		enableClear();
 		enableMakeList();
+		deleteAlertMessage();
 	} else if (e.target.id === 'button-clear') {
 		clearAll();
 		enableAdd();
+		deleteAlertMessage();
 	} else if (e.target.id === 'button-filter') {
 	}
 }
@@ -143,7 +149,7 @@ function displayCards(toDoList) {
 			<ul>${pushTasksToDom(toDoList)}</ul >
 		</section >
 		<footer>
-			<button ${toDoList.urgent ? 'class="check-urgent-text"' : ''}>
+			<button ${toDoList.urgent ? 'class="check-urgent-text"' : ''} id="error-message">
 				<img id="button-urgent" class="button-urgent ${toDoList.urgent ? 'button-urgent-active' : ''}" src="images/urgent.svg">
 				<h6>URGENT</h6>
 			</button>
@@ -177,6 +183,7 @@ function updateUrgency(e) {
 	globalLists[listIndex].updateToDo(globalLists);
 	var urgentStatus = globalLists[listIndex].urgent;
 	styleUrgency(e, urgentStatus);
+	deleteAlertMessage();
 };
 
 function styleUrgency(e, urgentStatus) {
@@ -207,6 +214,7 @@ function completeTask(e) { // need to fix this mess
 	checkPoint(e);
 	console.log(globalLists[listIndex].tasksArray[taskIndex].complete)
 	styleCompletedTask(e, globalLists[listIndex].tasksArray[taskIndex].complete);
+	deleteAlertMessage();
 }
 
 function styleCompletedTask(e, complete) {
@@ -221,12 +229,25 @@ function deleteHandler(e) {
 	var checkArray = [];
 	var listIndex = findIndex(retrieveId(e, 'article'), globalLists);
 	var tasks = globalLists[listIndex].tasksArray;
-
+	deleteAlertMessage();
 	for (var i = 0; i < tasks.length; i++) {
 		checkArray.push(tasks[i].complete);
 	}
 
-	checkArray.includes(false) ? console.log('complete tasks first!') : deleteCard(e);
+	checkArray.includes(false) ? errorMessage(e) : (deleteCard(e), deleteAlertMessage());
+}
+
+function errorMessage(e) {
+	e.target.closest('footer').querySelector('#delete-message')
+		? console.log('nope')
+		: e.target.closest('footer').querySelector('#error-message').insertAdjacentHTML('afterend', `<p id="delete-message">finish all <br /> tasks first!</p>`)
+}
+
+function deleteAlertMessage() {
+	var checkMessage = document.querySelector('#delete-message');
+	if (checkMessage) {
+		checkMessage.remove();
+	}
 }
 
 function deleteCard(e) {
