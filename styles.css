@@ -16,7 +16,6 @@
 }
 
 * {
-  /* border: 1px solid red; */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -101,7 +100,7 @@ main {
 
 aside {
   background-color: var(--background-green);
-  height: 100vh;
+  height: auto;
   width: 45%;
   border-right: solid 2px var(--aside-border);
   display: flex;
@@ -159,9 +158,11 @@ aside form {
   border: solid 2px var(--filter-border);
 }
 
-.add-form {
-  display: flex;
-  margin-bottom: 30px;
+.button-sidebar:disabled {
+  background-color: #525461;
+  transition: 0.25s;
+  pointer-events: none;
+  border: 2px solid #3d3d3d;
 }
 
 aside input {
@@ -174,10 +175,41 @@ aside input {
   color: var(--background-blue);
 }
 
+input::placeholder {
+  color: lightgray;
+}
+
+.add-form {
+  display: flex;
+  margin-bottom: 30px;
+}
+
 .add-form input {
   border-radius: 0;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px
+}
+
+.add-form button {
+  width: 60px;
+  height: 50px;
+  background-color: var(--background-blue);
+  border: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top: solid 2px var(--background-blue);
+  border-right: solid 2px var(--background-blue);
+  border-bottom: solid 2px var(--background-blue);
+}
+
+.add-form button:hover {
+  background-color: var(--urgent-button);
+  transition: 0.25s;
+}
+
+.add-form button:active {
+  background-color: var(--urgent-active);
+  transition: 0.25s;
 }
 
 .button-add {
@@ -193,43 +225,23 @@ aside input {
   transition: 0.25s;
 }
 
-.add-form button {
-  width: 60px;
-  height: 50px;
-  background-color: var(--background-blue);
-  border: 0;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-top: solid 2px var(--background-blue);
-  border-right: solid 2px var(--background-blue);
-  border-bottom: solid 2px var(--background-blue);
-}
-
 .button-add:disabled {
   background-color: #525461;
   transition: 0.25s;
   pointer-events: none;
 }
 
-.button-sidebar:disabled {
-  background-color: #525461;
-  transition: 0.25s;
-  pointer-events: none;
-  border: 2px solid #3d3d3d;
-}
-
-.add-form button:hover {
-  background-color: var(--urgent-button);
-  transition: 0.25s;
-}
-
-.add-form button:active {
-  background-color: var(--urgent-active);
-  transition: 0.25s;
-}
-
 aside ul {
   margin: 20px auto 0 auto;
+}
+
+aside ul img {
+  margin-right: 6px;
+  margin-top: 4px;
+}
+
+aside ul img:hover {
+  content:url("images/delete-active.svg");
 }
 
 aside li {
@@ -243,19 +255,6 @@ aside p {
   font-size: 18px;
   border-radius: 5px;
   padding: 6px;
-}
-
-input::placeholder {
-  color: lightgray;
-}
-
-aside ul img {
-  margin-right: 6px;
-  margin-top: 4px;
-}
-
-aside ul img:hover {
-	content:url("images/delete-active.svg");
 }
 
 #button-create:disabled {
@@ -317,25 +316,6 @@ header {
   margin-top: 8px;
 }
 
-article p {
-  margin: 0.2rem 0;
-  font-size: 22px;
-  border-radius: 5px;
-  border: dashed 2px rgba(0,0,0,0);
-  padding: 5px;
-}
-
-.check-task-text {
-  font-style: italic;
-  color: var(--aside-border);
-  text-decoration: line-through;
-}
-
-.check-task-icon {
-  content: url("images/checkbox-active.svg");
-} 
-
-
 h2 {
   padding-top: 3px;
   height: 33px;
@@ -360,6 +340,60 @@ h2:focus {
   border: dashed 2px var(--card-border);
   transition: 0.25s;
 }
+
+.card-main-section {
+  border-bottom: 2px solid var(--card-border);
+  border-top: 2px solid var(--card-border);
+  margin: 0 auto;
+  width: 99%;
+}
+
+.urgent-content {
+  width: 99%;
+  margin: 0 auto;
+  border-top: 2px solid var(--urgent-border-active);
+  border-bottom: 2px solid var(--urgent-border-active);
+}
+
+li {
+  display: flex;
+}
+
+article li img {
+  margin: 11px 5px 0 15px;
+  height: 23px;
+}
+
+ul {
+  list-style: none;
+  width: 95%
+}
+
+article ul {
+  margin: 10px 0;
+}
+
+article p {
+  margin: 0.2rem 0;
+  font-size: 22px;
+  border-radius: 5px;
+  border: dashed 2px rgba(0,0,0,0);
+  padding: 5px;
+}
+
+.check-urgent-text {
+  color: var(--urgent-active);
+}
+
+.check-task-text {
+  font-style: italic;
+  color: var(--aside-border);
+  text-decoration: line-through;
+}
+
+.check-task-icon {
+  content: url("images/checkbox-active.svg");
+} 
 
 footer {
   display: flex;
@@ -393,55 +427,9 @@ footer p {
   color: var(--urgent-active)
 }
 
-ul {
-  list-style: none;
-  width: 95%
-}
-
-article ul {
-  margin: 10px 0;
-}
-
-.card-main-section {
-  border-bottom: 2px solid var(--card-border);
-  border-top: 2px solid var(--card-border);
-  margin: 0 auto;
-  width: 99%;
-}
-
-.urgent-content {
-  width: 99%;
-  margin: 0 auto;
-  border-top: 2px solid var(--urgent-border-active);
-  border-bottom: 2px solid var(--urgent-border-active);
-}
-
-.check-urgent-text {
-  color: var(--urgent-active);
-}
-
-li {
-  display: flex;
-}
-
-article li img {
-  margin: 11px 5px 0 15px;
-  height: 23px;
-}
-
-aside {
-  background-color: var(--background-green);
-  height: auto;
-}
-
 .button-urgent-active {
   content:url("images/urgent-active.svg");
 }
-
-/* .button-urgent:hover {
-  content:url("images/urgent-active.svg");
-}
-*/
 
 .button-delete-card:hover {
   content:url("images/delete-active.svg");
@@ -449,44 +437,32 @@ aside {
 
 @media only screen and (max-width: 730px) {
 
-  main {
-    min-height: auto;
-  }
+  /* HEADER section */
 
-  .button-sidebar:hover {
-    background-color: var(--background-blue);
-    border: 0;
+  h1 {
+    font-size: 40px;
+    margin: 0;
   }
-
-  .add-form button:hover {
-    background-color: var(--background-blue);
-    border-color: var(--background-blue);
+  
+  nav {
+    flex-direction: column;
+    height: 130px;
+    justify-content: space-evenly;
   }
-
-  aside p {
-    padding: 12px;
-    font-size: 25px;
+  
+  nav form {
+    margin: 0;
+    width: 90%;
+    height: 55px;
   }
-
-  aside img {
-    height: 48px;
-  }
-
-  aside ul {
-    width: 100%
-  }
-
-  label {
-    font-size: 25px;
-  }
-
+  
   nav img {
     height: 55px;
     padding: 14px 0;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
   }
-
+  
   nav input {
     height: 55px;
     font-size: 25px;
@@ -494,50 +470,65 @@ aside {
     border-bottom-right-radius: 12px;
   }
 
-  nav {
+  /* MAIN section */
+
+  main {
+    min-height: auto;
     flex-direction: column;
-    height: 130px;
-    justify-content: space-evenly;
   }
 
-  h1 {
-    font-size: 40px;
-    margin: 0;
-  }
-
-  nav form {
-    margin: 0;
-    width: 90%;
-    height: 55px;
-  }
-
+  /* SIDEBAR section */
+  
   aside {
     width: 100%;
   }
-
-  main {
-    flex-direction: column;
+  
+  label {
+    font-size: 25px;
   }
-
+  
   aside input {
     height: 60px;
     font-size: 25px;
     border-radius: 12px;
     border: solid 3px;
   }
-
+  
   input::placeholder {
     font-size: 25px;
   }
 
+  aside img {
+    height: 48px;
+  }
+  
+  aside ul {
+    width: 100%
+  }
+  
+  aside p {
+    padding: 12px;
+    font-size: 25px;
+  }
+  
   .button-sidebar {
     height: 60px;
     font-size: 25px;
     border-radius: 12px;
   }
 
+  .button-sidebar:hover {
+    background-color: var(--background-blue);
+    border: 0;
+  }
+
   .button-sidebar:disabled {
     border: solid 3px #3d3d3d;
+  }
+
+  .add-form input {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
   }
 
   .add-form button {
@@ -550,20 +541,26 @@ aside {
     border-right: 3px solid #1F1F3D;
     border-bottom: 3px solid #1F1F3D;
   }
-
-  .add-form input {
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+  
+  .add-form button:hover {
+    background-color: var(--background-blue);
+    border-color: var(--background-blue);
   }
 
   #prioritize {
     margin-bottom: 40px;
   }
 
+  /* CARD AREA section */
+
   .card-area {
     padding: 12px;
     column-width: 22em;
     padding-top: 35px;
+  }
+
+  article {
+    border-radius: 8px;
   }
 
   header {
@@ -592,9 +589,9 @@ aside {
     transition: 0.25s;
     border-radius: 8px;
   }
-
-  article {
-    border-radius: 8px;
+  
+  article ul {
+    margin: 20px 0;
   }
 
   article li img {
@@ -602,13 +599,13 @@ aside {
     margin: 10px 2px 0 15px;
   }
 
-  article ul {
-    margin: 20px 0;
-  }
-
   article p {
     font-size: 25px;
     padding: 8px;
+  }
+
+  footer {
+    height: 90px;
   }
 
   footer img {
@@ -617,9 +614,5 @@ aside {
 
   h6 {
     font-size: 18px;
-  }
-
-  footer {
-    height: 90px;
   }
 }
