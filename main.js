@@ -236,9 +236,17 @@ function filterByUrgency() {
 }
 
 function filterBySearch() {
+	var filterText = document.querySelector('#button-filter');
+	document.querySelector('.card-area').innerHTML = '';
+	var urgentCards = globalLists.filter(function (list) {
+		return list.urgent === true;
+	});
+
+	var arraySelection = filterText.getAttribute('state') === "on" ? urgentCards : globalLists;
+
 	document.querySelector('.card-area').innerHTML = '';
 	var inputSearch = document.querySelector('#input-search').value.toLowerCase();
-	var matchingCards = globalLists.filter(function (list) {
+	var matchingCards = arraySelection.filter(function (list) {
 		return list.title.toLowerCase().includes(inputSearch);
 	})
 
