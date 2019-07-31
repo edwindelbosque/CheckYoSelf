@@ -17,31 +17,21 @@ CheckYoSelf is an to-do list web application. Additionally, you can prioritize c
 ---
 ### Static Comps and Screenshots
 
-#### Static Comp Desktop Layout
+#### Given Comps: Desktop and Mobile
 <details>
   <summary> Click to View </summary>
   
 ![](https://user-images.githubusercontent.com/48811985/62185479-363a6e80-b352-11e9-9aa3-4c9018b66fd4.jpg)
 
-</details>  
-
-#### Static Comp Mobile Layout
-<details>
-  <summary> Click to View </summary>
-
 ![](https://user-images.githubusercontent.com/48811985/62185564-7ef22780-b352-11e9-8e72-6d1b3bcb346b.jpg)
 </details>
 
-#### Recreation Desktop Layout
+#### My finished products
 <details>
   <summary> Click to View </summary>
   
 ![](https://user-images.githubusercontent.com/48811985/62187010-849e3c00-b357-11e9-88ee-fbe0e113d8f7.png)
  </details>
- 
-#### Recreation Mobile Layout
-
-<details>
   <summary> Click to View </summary>
 
 ![](https://user-images.githubusercontent.com/48811985/62186689-a3e89980-b356-11e9-8f41-0e972d1b3f4e.png)
