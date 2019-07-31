@@ -1,7 +1,7 @@
 var buttonAddTask = document.querySelector('#button-add')
 var buttonClear = document.querySelector('#button-clear');
 var buttonMakeList = document.querySelector('#button-create');
-var cardArea = document.querySelector('.card-area');
+var cardArea = document.querySelector('#card-area');
 var displaySidebarItems = document.querySelector('#list-items');
 var inputTask = document.querySelector('#input-item');
 var inputTitle = document.querySelector('#input-title');
@@ -82,11 +82,20 @@ function handleCardArea(e) {
 // FUNCTIONS
 
 function handlePageLoad() {
+	// welcomeText();
 	if (JSON.parse(localStorage.getItem("globalStorage"))) {
 		restoreData();
 		restoreDOM();
 	}
 }
+
+// function welcomeText() {
+// 	if (cardArea.innerHTML === '') {
+// 		cardArea.insertAdjacentHTML('afterbegin', `<p id="welcome-text">HELLO! Add some cards</p>`)
+// 	} else {
+// 		document.querySelector('#welcome-message').remove();
+// 	}
+// }
 
 function restoreData() {
 	var recoveredData = JSON.parse(localStorage.getItem('globalStorage')).map(function (toDo) {
@@ -144,21 +153,21 @@ function createToDoList() {
 
 function displayCards(toDoList) {
 	var htmlBlock = `      
-	<article identifier="${toDoList.id}" ${toDoList.urgent ? 'class="urgent-card"' : ''} >
+	<article identifier="${toDoList.id}" ${toDoList.urgent ? 'class="article__card--yellow"' : ''} >
 		<header>
 			<h2 contenteditable>${toDoList.title}</h2>
 		</header>
-		<section class="card-main-section ${toDoList.urgent ? 'urgent-content' : ''}" id="main-content">
+		<section class="card__main ${toDoList.urgent ? 'card__border--yellow' : ''}" id="main-content">
 			<ul>${pushTasksToDom(toDoList)}</ul >
 		</section >
 		<footer>
-			<button ${toDoList.urgent ? 'class="check-urgent-text"' : ''} id="error-message">
-				<img id="button-urgent" class="button-urgent ${toDoList.urgent ? 'button-urgent-active' : ''}" src="images/urgent.svg">
+			<button ${toDoList.urgent ? 'class="card__text--red"' : ''} id="error-message">
+				<img id="button-urgent" class="button-urgent ${toDoList.urgent ? 'card__urgent--img' : ''}" src="images/urgent.svg">
 				<h6>URGENT</h6>
 			</button>
 			<button>
-				<img id="button-delete-card" class="button-delete-card" src="images/delete.svg">
-				<h6 class="delete-text-active ${toDoList.urgent ? 'urgent-buttons' : ''}">DELETE</h6>
+				<img id="button-delete-card" class="card__delete--img" src="images/delete.svg">
+				<h6 class="delete-text-active ${toDoList.urgent ? 'card__text--black' : ''}">DELETE</h6>
 			</button>
 		</footer>
 	</article>`
@@ -172,10 +181,10 @@ function pushTasksToDom(toDoList) {
 			`<li identifier="
 			${toDoList.tasksArray[i].id}" 
 			${toDoList.tasksArray[i].complete
-				? 'class="check-task-text"' : ''} 
+				? 'class="card__text--blue"' : ''} 
 				><img src="images/checkbox.svg" id="button-complete" 
 				${toDoList.tasksArray[i].complete
-				? 'class="check-task-icon"' : ''}><p>
+				? 'class="card__img--check"' : ''}><p>
 					${toDoList.tasksArray[i].text}</p></li>`
 	}
 	return taskList;
@@ -191,26 +200,27 @@ function updateUrgency(e) {
 
 function styleUrgency(e, urgentStatus) {
 	urgentStatus
-		? (e.target.closest('article').classList.add('urgent-card'),
-			e.target.closest('article').querySelector('#main-content').classList.add('urgent-content'),
-			e.target.classList.add('button-urgent-active'),
-			e.target.closest('footer').querySelector('.delete-text-active').classList.add('urgent-buttons'),
-			e.target.closest('button').classList.add('check-urgent-text'))
-		: (e.target.closest('article').classList.remove('urgent-card'),
-			e.target.closest('article').querySelector('#main-content').classList.remove('urgent-content'),
-			e.target.classList.remove('button-urgent-active'),
-			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('urgent-buttons'),
-			e.target.closest('button').classList.remove('check-urgent-text'))
+		? (e.target.closest('article').classList.add('article__card--yellow'),
+			e.target.closest('article').querySelector('#main-content').classList.add('card__border--yellow'),
+			e.target.classList.add('card__urgent--img'),
+			e.target.closest('footer').querySelector('.delete-text-active').classList.add('card__text--black'),
+			e.target.closest('button').classList.add('card__text--red'))
+		: (e.target.closest('article').classList.remove('article__card--yellow'),
+			e.target.closest('article').querySelector('#main-content').classList.remove('card__border--yellow'),
+			e.target.classList.remove('card__urgent--img'),
+			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('card__text--black'),
+			e.target.closest('button').classList.remove('card__text--red'))
 }
 
 function filterByUrgency() {
 	var filterText = document.querySelector('#button-filter');
-	document.querySelector('.card-area').innerHTML = '';
+	document.querySelector('#card-area').innerHTML = '';
 	var urgentCards = masterArray.filter(function (list) {
 		return list.urgent === true;
 	});
 	if (filterText.getAttribute('state') === "off") {
 		filterText.setAttribute('state', 'on');
+		filterText.classList.add('aside__button--orange');
 		document.querySelector('#button-filter').innerHTML = 'Show All Cards';
 		if (!urgentCards.length) {
 			document.querySelector('#prioritize')
@@ -226,6 +236,7 @@ function filterByUrgency() {
 		}
 	} else if (filterText.getAttribute('state') === "on") {
 		filterText.setAttribute('state', 'off');
+		filterText.classList.remove('aside__button--orange');
 		document.querySelector('#input-search').value = '';
 		document.querySelector('#button-filter').innerHTML = 'Filter by Urgency';
 		if (document.querySelector('#prioritize')) {
@@ -239,14 +250,14 @@ function filterByUrgency() {
 
 function filterBySearch() {
 	var filterText = document.querySelector('#button-filter');
-	document.querySelector('.card-area').innerHTML = '';
+	document.querySelector('#card-area').innerHTML = '';
 	var urgentCards = masterArray.filter(function (list) {
 		return list.urgent === true;
 	});
 
 	var arraySelection = filterText.getAttribute('state') === "on" ? urgentCards : masterArray;
 
-	document.querySelector('.card-area').innerHTML = '';
+	document.querySelector('#card-area').innerHTML = '';
 	var inputSearch = document.querySelector('#input-search').value.toLowerCase();
 	var matchingCards = arraySelection.filter(function (list) {
 		return list.title.toLowerCase().includes(inputSearch);
@@ -285,10 +296,10 @@ function completeTask(e) { // need to fix this mess
 
 function styleCompletedTask(e, complete) {
 	complete
-		? (e.target.closest('li').classList.add('check-task-text'),
-			e.target.closest('img').classList.add('check-task-icon'))
-		: (e.target.closest('li').classList.remove('check-task-text'),
-			e.target.closest('img').classList.remove('check-task-icon'))
+		? (e.target.closest('li').classList.add('card__text--blue'),
+			e.target.closest('img').classList.add('card__img--check'))
+		: (e.target.closest('li').classList.remove('card__text--blue'),
+			e.target.closest('img').classList.remove('card__img--check'))
 }
 
 function deleteHandler(e) {

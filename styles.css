@@ -110,7 +110,7 @@ aside {
   min-width: fit-content;
 }
 
-.aside-top {
+.aside__top {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -132,7 +132,7 @@ aside form {
   width: 90%;
 }
 
-.button-sidebar {
+.aside__button {
   background-color: var(--background-blue);
   color: white;
   font-size: 22px;
@@ -146,19 +146,19 @@ aside form {
   transition: 0.25s;
 }
 
-.button-sidebar:hover {
+.aside__button:hover {
   background-color: var(--urgent-button);
   transition: 0.25s;
   border: solid 2px var(--filter-border);
 }
 
-.button-sidebar:active {
+.aside__button:active {
   background-color: var(--urgent-active);
   transition: 0.25s;
   border: solid 2px var(--filter-border);
 }
 
-.button-sidebar:disabled {
+.aside__button:disabled {
   background-color: #525461;
   transition: 0.25s;
   pointer-events: none;
@@ -179,18 +179,18 @@ input::placeholder {
   color: lightgray;
 }
 
-.add-form {
+.aside__div {
   display: flex;
   margin-bottom: 30px;
 }
 
-.add-form input {
+.aside__div input {
   border-radius: 0;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.add-form button {
+.aside__div button {
   width: 60px;
   height: 50px;
   background-color: var(--background-blue);
@@ -202,17 +202,17 @@ input::placeholder {
   border-bottom: solid 2px var(--background-blue);
 }
 
-.add-form button:hover {
+.aside__div button:hover {
   background-color: var(--urgent-button);
   transition: 0.25s;
 }
 
-.add-form button:active {
+.aside__div button:active {
   background-color: var(--urgent-active);
   transition: 0.25s;
 }
 
-.button-add {
+.aside__div__button {
   width: 50px;
   height: 50px;
   border-top-right-radius: 3px;
@@ -225,7 +225,7 @@ input::placeholder {
   transition: 0.25s;
 }
 
-.button-add:disabled {
+.aside__div__button:disabled {
   background-color: #525461;
   transition: 0.25s;
   pointer-events: none;
@@ -263,7 +263,7 @@ aside p {
 	pointer-events: none;
 }
 
-.aside-bottom {
+.aside__bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,14 +271,20 @@ aside p {
   width: 90%;
 }
 
-.aside-bottom button {
+.aside__bottom button {
   margin-top: 25px;
   margin-bottom: 40px;
 }
 
+.aside__button--orange {
+  background-color: var(--urgent-button);
+  transition: 0.25s;
+  border: solid 2px var(--filter-border);
+}
+
 /* CARD AREA section */
 
-.card-area {
+.card__area {
   background-color: var(--background-card-area);
   column-gap: 1.5rem;
   column-width: 19em;
@@ -286,7 +292,7 @@ aside p {
   width: 100%;
 }
 
-.urgent-card {
+.article__card--yellow {
   background: var(--urgent-background);
   border: 2px solid var(--urgent-border-active);
   display: inline-block;
@@ -341,14 +347,14 @@ h2:focus {
   transition: 0.25s;
 }
 
-.card-main-section {
+.card__main {
   border-bottom: 2px solid var(--card-border);
   border-top: 2px solid var(--card-border);
   margin: 0 auto;
   width: 99%;
 }
 
-.urgent-content {
+.card__border--yellow {
   width: 99%;
   margin: 0 auto;
   border-top: 2px solid var(--urgent-border-active);
@@ -381,17 +387,13 @@ article p {
   padding: 5px;
 }
 
-.check-urgent-text {
-  color: var(--urgent-active);
-}
-
-.check-task-text {
+.card__text--blue {
   font-style: italic;
   color: var(--aside-border);
   text-decoration: line-through;
 }
 
-.check-task-icon {
+.card__img--check {
   content: url("images/checkbox-active.svg");
 } 
 
@@ -413,7 +415,11 @@ footer button {
   flex-direction: column;
 }
 
-.urgent-buttons {
+.card__text--red {
+  color: var(--urgent-active);
+}
+
+.card__text--black {
   color: black;
 }
 
@@ -427,11 +433,11 @@ footer p {
   color: var(--urgent-active)
 }
 
-.button-urgent-active {
+.card__urgent--img {
   content:url("images/urgent-active.svg");
 }
 
-.button-delete-card:hover {
+.card__delete--img:hover {
   content:url("images/delete-active.svg");
 }
 
@@ -511,27 +517,27 @@ footer p {
     font-size: 25px;
   }
   
-  .button-sidebar {
+  .aside__button {
     height: 60px;
     font-size: 25px;
     border-radius: 12px;
   }
 
-  .button-sidebar:hover {
+  .aside__button:hover {
     background-color: var(--background-blue);
     border: 0;
   }
 
-  .button-sidebar:disabled {
+  .aside__button:disabled {
     border: solid 3px #3d3d3d;
   }
 
-  .add-form input {
+  .aside__div input {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
   }
 
-  .add-form button {
+  .aside__div button {
     height: 60px;
     width: 70px;
     font-size: 60px;
@@ -542,7 +548,7 @@ footer p {
     border-bottom: 3px solid #1F1F3D;
   }
   
-  .add-form button:hover {
+  .aside__div button:hover {
     background-color: var(--background-blue);
     border-color: var(--background-blue);
   }
@@ -553,7 +559,7 @@ footer p {
 
   /* CARD AREA section */
 
-  .card-area {
+  .card__area {
     padding: 12px;
     column-width: 22em;
     padding-top: 35px;

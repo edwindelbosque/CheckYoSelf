@@ -20,25 +20,25 @@
   </nav>
   <main>
     <aside>
-      <section class="aside-top">
+      <section class="aside__top">
         <form>
           <label>Task Title</label>
           <input id="input-title" type="text" placeholder="ex. today">
           <ul id="list-items"></ul>
           <label>Task Item</label>
-          <div role="form" class="add-form">
+          <div role="form" class="aside__div">
             <input id="input-item" type="text" placeholder="ex. work on project">
-            <button id="button-add" class="button-add" disabled>+</button>
+            <button id="button-add" class="aside__div__button" disabled>+</button>
           </div>
-          <button id="button-create" class="button-sidebar" disabled>Make Task List</button>
-          <button id="button-clear" class="button-sidebar" disabled>Clear All</button>
+          <button id="button-create" class="aside__button" disabled>Make Task List</button>
+          <button id="button-clear" class="aside__button" disabled>Clear All</button>
         </form>
       </section>
-      <section class="aside-bottom">
-        <button state="off" id="button-filter" class="button-sidebar">Filter by Urgency</button>
+      <section class="aside__bottom">
+        <button state="off" id="button-filter" class="aside__button">Filter by Urgency</button>
       </section>
     </aside>
-    <section class="card-area">
+    <section class="card__area" id="card-area">
     </section>
   </main>
 </body>
