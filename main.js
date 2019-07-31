@@ -2,12 +2,13 @@ var buttonAddTask = document.querySelector('#button-add')
 var buttonClear = document.querySelector('#button-clear');
 var buttonMakeList = document.querySelector('#button-create');
 var cardArea = document.querySelector('#card-area');
-var displaySidebarItems = document.querySelector('#list-items');
-var inputTask = document.querySelector('#input-item');
+var inputTask = document.querySelector('#input-task');
 var inputTitle = document.querySelector('#input-title');
-var listItems = document.querySelector('#list-items');
+var inputSearch = document.querySelector('#input-search');
+var buttonFilter = document.querySelector('#button-filter');
 var navBar = document.querySelector('nav');
 var sideBar = document.querySelector('aside');
+var sidebarList = document.querySelector('#list-items');
 
 var masterArray = [];
 
@@ -17,15 +18,13 @@ sideBar.addEventListener('click', handleSideBarButtons);
 sideBar.addEventListener('keyup', handleSideBarInputs);
 window.addEventListener('DOMContentLoaded', handlePageLoad);
 
-// EVENT DELEGATIONS
-
 function handleNav(e) {
 	e.preventDefault(e);
 	if (e.target.id === 'input-search') {
 		filterBySearch();
 		deleteAlertMessage();
 	}
-}
+};
 
 function handleSideBarInputs(e) {
 	e.preventDefault();
@@ -34,12 +33,12 @@ function handleSideBarInputs(e) {
 		enableClear();
 		deleteAlertMessage();
 	}
-	else if (e.target.id === 'input-item') {
+	else if (e.target.id === 'input-task') {
 		enableAdd();
 		enableClear();
 		deleteAlertMessage();
 	}
-}
+};
 
 function handleSideBarButtons(e) {
 	e.preventDefault();
@@ -64,7 +63,7 @@ function handleSideBarButtons(e) {
 	} else if (e.target.id === 'button-filter') {
 		filterByUrgency();
 	}
-}
+};
 
 function handleCardArea(e) {
 	e.preventDefault();
@@ -75,27 +74,18 @@ function handleCardArea(e) {
 		updateUrgency(e);
 	}
 	if (e.target.id === 'button-delete-card') {
-		deleteHandler(e);
+		deleteCardHandler(e);
 	}
-}
+};
 
 // FUNCTIONS
 
 function handlePageLoad() {
-	// welcomeText();
 	if (JSON.parse(localStorage.getItem("globalStorage"))) {
 		restoreData();
 		restoreDOM();
 	}
-}
-
-// function welcomeText() {
-// 	if (cardArea.innerHTML === '') {
-// 		cardArea.insertAdjacentHTML('afterbegin', `<p id="welcome-text">HELLO! Add some cards</p>`)
-// 	} else {
-// 		document.querySelector('#welcome-message').remove();
-// 	}
-// }
+};
 
 function restoreData() {
 	var recoveredData = JSON.parse(localStorage.getItem('globalStorage')).map(function (toDo) {
@@ -103,13 +93,38 @@ function restoreData() {
 	});
 
 	masterArray = recoveredData;
-}
+};
 
 function restoreDOM() {
 	for (var i = 0; i < masterArray.length; i++) {
 		displayCards(masterArray[i]);
 	}
-}
+};
+
+function displayTask() {
+	sidebarList.insertAdjacentHTML(
+		'beforeend',
+		`<li id="task" identifier="${Date.now()}"><img id="button-delete-item" src="images/delete.svg"><p>${inputTask.value}</p></li>`
+	);
+	inputTask.value = '';
+	enableAdd();
+	enableMakeList();
+};
+
+function createToDoList() {
+	var toDoList = new ToDoList({
+		id: Date.now(),
+		title: inputTitle.value,
+		tasksArray: addTask(),
+		urgent: false
+	});
+
+	masterArray.push(toDoList);
+	displayCards(toDoList);
+	toDoList.saveToStorage(masterArray);
+	sidebarList.innerHTML = '';
+	inputTitle.value = '';
+};
 
 function addTask() {
 	var tasksArray = document.querySelectorAll('#task');
@@ -124,32 +139,7 @@ function addTask() {
 	}
 
 	return appendTasks;
-}
-
-function displayTask() {
-	listItems.insertAdjacentHTML(
-		'beforeend',
-		`<li id="task" identifier="${Date.now()}"><img id="button-delete-item" src="images/delete.svg"><p>${document.querySelector('#input-item').value}</p></li>`
-	);
-	document.querySelector('#input-item').value = '';
-	enableAdd();
-	enableMakeList();
-}
-
-function createToDoList() {
-	var toDoList = new ToDoList({
-		id: Date.now(),
-		title: document.querySelector('#input-title').value,
-		tasksArray: addTask(),
-		urgent: false
-	});
-
-	masterArray.push(toDoList);
-	displayCards(toDoList);
-	toDoList.saveToStorage(masterArray);
-	displaySidebarItems.innerHTML = '';
-	inputTitle.value = '';
-}
+};
 
 function displayCards(toDoList) {
 	var htmlBlock = `      
@@ -172,7 +162,7 @@ function displayCards(toDoList) {
 		</footer>
 	</article>`
 	cardArea.insertAdjacentHTML('afterbegin', htmlBlock);
-}
+};
 
 function pushTasksToDom(toDoList) {
 	var taskList = '';
@@ -188,121 +178,96 @@ function pushTasksToDom(toDoList) {
 					${toDoList.tasksArray[i].text}</p></li>`
 	}
 	return taskList;
-}
+};
 
 function updateUrgency(e) {
 	var listIndex = findIndex(retrieveId(e, 'article'), masterArray);
 	masterArray[listIndex].updateToDo(masterArray);
-	var urgentStatus = masterArray[listIndex].urgent;
-	styleUrgency(e, urgentStatus);
+	var urgent = masterArray[listIndex].urgent;
+	urgent ? styleUrgency(e, 'add') : styleUrgency(e, 'remove')
 	deleteAlertMessage();
 };
 
-function styleUrgency(e, urgentStatus) {
-	urgentStatus
-		? (e.target.closest('article').classList.add('article__card--yellow'),
-			e.target.closest('article').querySelector('#main-content').classList.add('card__border--yellow'),
-			e.target.classList.add('card__urgent--img'),
-			e.target.closest('footer').querySelector('.delete-text-active').classList.add('card__text--black'),
-			e.target.closest('button').classList.add('card__text--red'))
-		: (e.target.closest('article').classList.remove('article__card--yellow'),
-			e.target.closest('article').querySelector('#main-content').classList.remove('card__border--yellow'),
-			e.target.classList.remove('card__urgent--img'),
-			e.target.closest('footer').querySelector('.delete-text-active').classList.remove('card__text--black'),
-			e.target.closest('button').classList.remove('card__text--red'))
-}
+function styleUrgency(e, method) {
+	e.target.closest('article').classList[method]('article__card--yellow')
+	e.target.closest('article').querySelector('#main-content').classList[method]('card__border--yellow')
+	e.target.classList[method]('card__urgent--img')
+	e.target.closest('footer').querySelector('.delete-text-active').classList[method]('card__text--black')
+	e.target.closest('button').classList[method]('card__text--red')
+};
 
 function filterByUrgency() {
-	var filterText = document.querySelector('#button-filter');
-	document.querySelector('#card-area').innerHTML = '';
-	var urgentCards = masterArray.filter(function (list) {
+	cardArea.innerHTML = '';
+	inputSearch.value = '';
+	var urgentArray = masterArray.filter(function (list) {
 		return list.urgent === true;
 	});
-	if (filterText.getAttribute('state') === "off") {
-		filterText.setAttribute('state', 'on');
-		filterText.classList.add('aside__button--orange');
-		document.querySelector('#button-filter').innerHTML = 'Show All Cards';
-		if (!urgentCards.length) {
-			document.querySelector('#prioritize')
-				? ''
-				: document.querySelector('#button-filter').insertAdjacentHTML('afterend', '<p id="prioritize">prioritize some cards!</p>')
-		} else {
-			for (var i = 0; i < urgentCards.length; i++) {
-				displayCards(urgentCards[i]);
-				if (document.querySelector('#prioritize')) {
-					document.querySelector('#prioritize').remove()
-				}
-			}
+	buttonFilter.getAttribute('state') === "off" ? turnFilterOn(urgentArray) : turnFilterOff()
+};
+
+function turnFilterOn(array) {
+	buttonFilter.setAttribute('state', 'on');
+	buttonFilter.classList.add('aside__button--orange');
+	buttonFilter.innerHTML = 'Show All Cards';
+	if (array.length) {
+		for (var i = 0; i < array.length; i++) {
+			displayCards(array[i]);
 		}
-	} else if (filterText.getAttribute('state') === "on") {
-		filterText.setAttribute('state', 'off');
-		filterText.classList.remove('aside__button--orange');
-		document.querySelector('#input-search').value = '';
-		document.querySelector('#button-filter').innerHTML = 'Filter by Urgency';
-		if (document.querySelector('#prioritize')) {
-			document.querySelector('#prioritize').remove()
-		}
-		for (var i = 0; i < masterArray.length; i++) {
-			displayCards(masterArray[i]);
-		}
+	} else {
+		buttonFilter.insertAdjacentHTML('afterend', '<p id="prioritize">prioritize some cards!</p>')
 	}
-}
+};
+
+function turnFilterOff() {
+	var prioritize = document.querySelector('#prioritize');
+	buttonFilter.setAttribute('state', 'off');
+	buttonFilter.classList.remove('aside__button--orange');
+	buttonFilter.innerHTML = 'Filter by Urgency';
+	for (var i = 0; i < masterArray.length; i++) {
+		displayCards(masterArray[i]);
+	}
+	if (prioritize) {
+		prioritize.remove()
+	}
+};
 
 function filterBySearch() {
-	var filterText = document.querySelector('#button-filter');
-	document.querySelector('#card-area').innerHTML = '';
-	var urgentCards = masterArray.filter(function (list) {
+	var urgentArray = masterArray.filter(function (list) {
 		return list.urgent === true;
 	});
 
-	var arraySelection = filterText.getAttribute('state') === "on" ? urgentCards : masterArray;
-
-	document.querySelector('#card-area').innerHTML = '';
+	var arraySelection = buttonFilter.getAttribute('state') === "on" ? urgentArray : masterArray;
 	var inputSearch = document.querySelector('#input-search').value.toLowerCase();
 	var matchingCards = arraySelection.filter(function (list) {
 		return list.title.toLowerCase().includes(inputSearch);
 	})
 
+	cardArea.innerHTML = '';
 	for (var i = 0; i < matchingCards.length; i++) {
 		displayCards(matchingCards[i]);
 	}
-}
+};
 
-function getTasksIntoGlobal() {
-	var allTasks = document.querySelectorAll('.task');
-	array = [];
-	allTasks.forEach(function (li) {
-		id = li.id;
-		text = li.innerText;
-		complete = false;
-	});
-}
-
-function completeTask(e) { // need to fix this mess
+function completeTask(e) {
 	var listIndex = findIndex(retrieveId(e, 'article'), masterArray);
 	var taskId = retrieveId(e, 'li');
-
 	var taskIndex = masterArray[listIndex].tasksArray.findIndex(function (task) {
 		return task.id === parseInt(taskId);
 	})
 
-	masterArray[listIndex].tasksArray[taskIndex].complete =
-		!masterArray[listIndex].tasksArray[taskIndex].complete;
-
+	masterArray[listIndex].tasksArray[taskIndex].complete = !masterArray[listIndex].tasksArray[taskIndex].complete;
+	var completeStatus = masterArray[listIndex].tasksArray[taskIndex].complete
 	checkPoint(e);
-	styleCompletedTask(e, masterArray[listIndex].tasksArray[taskIndex].complete);
+	completeStatus ? styleCompletedTask(e, 'add') : styleCompletedTask(e, 'remove');
 	deleteAlertMessage();
-}
+};
 
-function styleCompletedTask(e, complete) {
-	complete
-		? (e.target.closest('li').classList.add('card__text--blue'),
-			e.target.closest('img').classList.add('card__img--check'))
-		: (e.target.closest('li').classList.remove('card__text--blue'),
-			e.target.closest('img').classList.remove('card__img--check'))
-}
+function styleCompletedTask(e, method) {
+	e.target.closest('li').classList[method]('card__text--blue')
+	e.target.closest('img').classList[method]('card__img--check')
+};
 
-function deleteHandler(e) {
+function deleteCardHandler(e) {
 	var checkArray = [];
 	var listIndex = findIndex(retrieveId(e, 'article'), masterArray);
 	var tasks = masterArray[listIndex].tasksArray;
@@ -311,28 +276,29 @@ function deleteHandler(e) {
 		checkArray.push(tasks[i].complete);
 	}
 
-	checkArray.includes(false) ? errorMessage(e) : (deleteCard(e), deleteAlertMessage());
-}
+	checkArray.includes(false) ? alertMessage(e) : (deleteCard(e), deleteAlertMessage());
+};
 
-function errorMessage(e) {
+function alertMessage(e) {
 	e.target.closest('footer').querySelector('#delete-message')
 		? ''
 		: e.target.closest('footer').querySelector('#error-message').insertAdjacentHTML('afterend', `<p id="delete-message">finish all <br /> tasks first!</p>`)
-}
+};
 
 function deleteAlertMessage() {
-	var checkMessage = document.querySelector('#delete-message');
-	if (checkMessage) {
-		checkMessage.remove();
+	var checkForId = document.querySelector('#delete-message');
+
+	if (checkForId) {
+		checkForId.remove();
 	}
-}
+};
 
 function deleteCard(e) {
 	var listIndex = findIndex(retrieveId(e, 'article'), masterArray);
 
 	masterArray[listIndex].deleteFromStorage(masterArray)
 	e.target.closest('article').remove();
-}
+};
 
 function checkPoint(e) {
 	var listId = retrieveId(e, 'article');
@@ -340,7 +306,7 @@ function checkPoint(e) {
 		return list.id === parseInt(listId);
 	});
 	list.saveToStorage(masterArray);
-}
+};
 
 function retrieveId(e, location) {
 	var taskId = e.target.closest(location).getAttribute('identifier');
@@ -351,28 +317,28 @@ function findIndex(taskId, globalArray) {
 	return globalArray.findIndex(function (task) {
 		return task.id === parseInt(taskId);
 	})
-}
+};
 
 function clearAll() {
-	document.querySelector('#input-item').value = '';
+	inputTask.value = '';
 	inputTitle.value = '';
-	displaySidebarItems.innerHTML = '';
+	sidebarList.innerHTML = '';
 	enableMakeList();
 	enableClear();
-}
+};
 
 function enableClear() {
-	inputTitle.value || displaySidebarItems.innerHTML || inputTask.value
+	inputTitle.value || sidebarList.innerHTML || inputTask.value
 		? (buttonClear.disabled = false)
 		: (buttonClear.disabled = true);
-}
+};
 
 function enableAdd() {
 	buttonAddTask.disabled = !inputTask.value;
-}
+};
 
 function enableMakeList() {
-	!inputTitle.value || !displaySidebarItems.innerHTML
+	!inputTitle.value || !sidebarList.innerHTML
 		? (buttonMakeList.disabled = true)
 		: (buttonMakeList.disabled = false);
-}
+};

@@ -322,6 +322,12 @@ header {
   margin-top: 8px;
 }
 
+h2:focus, 
+p:focus,
+li:focus {
+  outline: none;
+}
+
 h2 {
   padding-top: 3px;
   height: 33px;
@@ -333,12 +339,6 @@ h2:hover {
   background-color: #7e7e7e13;
   border: dashed 2px var(--card-border);
   transition: 0.25s;
-}
-
-h2:focus, 
-p:focus,
-li:focus {
-  outline: none;
 }
 
 h2:focus {
@@ -361,18 +361,13 @@ h2:focus {
   border-bottom: 2px solid var(--urgent-border-active);
 }
 
-li {
-  display: flex;
-}
-
-article li img {
-  margin: 11px 5px 0 15px;
-  height: 23px;
-}
-
 ul {
   list-style: none;
   width: 95%;
+}
+
+li {
+  display: flex;
 }
 
 article ul {
@@ -396,6 +391,11 @@ article p {
 .card__img--check {
   content: url("images/checkbox-active.svg");
 } 
+
+article li img {
+  margin: 11px 5px 0 15px;
+  height: 23px;
+}
 
 footer {
   display: flex;
