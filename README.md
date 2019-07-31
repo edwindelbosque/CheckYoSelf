@@ -26,14 +26,10 @@ CheckYoSelf is an to-do list web application. Additionally, you can prioritize c
 ![](https://user-images.githubusercontent.com/48811985/62185564-7ef22780-b352-11e9-8e72-6d1b3bcb346b.jpg)
 </details>
 
-#### My finished products
+#### My finished build
 <details>
   <summary> Click to View </summary>
   
 ![](https://user-images.githubusercontent.com/48811985/62187010-849e3c00-b357-11e9-88ee-fbe0e113d8f7.png)
- </details>
-  <summary> Click to View </summary>
-
 ![](https://user-images.githubusercontent.com/48811985/62186689-a3e89980-b356-11e9-8f41-0e972d1b3f4e.png)
-  
  </details>
