@@ -1,5 +1,8 @@
 # CheckYoSelf
 ## Created by Edwin Del Bosque
+
+![](https://user-images.githubusercontent.com/48811985/62187432-e27f5380-b358-11e9-994f-aeba66330361.gif)
+
 ### Summary
 This is the final solo project of Module 1 at the Turing School of Software & Design. CheckYoSelf is a project that focuses on continuing to develop the skills of writing semantic HTML, clean & organized CSS, and DRY JavaScript. This project contains DOM manipulation, a data model, and client-side data persistence using localStorage.
 
@@ -11,8 +14,6 @@ CheckYoSelf is an to-do list web application. Additionally, you can prioritize c
 - **HTML**: semantic use
 - **CSS**: mobile and desktop friendly, BEM naming conventions, media queries, animations
 - **JavaScript**: DRY functions, event delegations, limited use of global variables (1), localStorage
-
-![](https://user-images.githubusercontent.com/48811985/62187432-e27f5380-b358-11e9-994f-aeba66330361.gif)
 
 ---
 ### Static Comps and Screenshots
