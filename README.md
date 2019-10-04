@@ -29,8 +29,8 @@ CheckYoSelf is an to-do list web application. Additionally, you can prioritize c
 ![](https://user-images.githubusercontent.com/48811985/62185564-7ef22780-b352-11e9-8e72-6d1b3bcb346b.jpg)
 </details>
 
-## Languages Used
+## Built with
 
-- **HTML**: semantic use
-- **CSS**: mobile and desktop friendly, BEM naming conventions, media queries, animations
-- **JavaScript**: DRY functions, event delegations, limited use of global variables (1), localStorage
+- **JavaScript**: DRY functions, event delegations, limited use of global variables (1), localStorage.
+- **CSS**: mobile and desktop friendly, BEM naming conventions, media queries, animations.
+- **HTML**: semantic use.
