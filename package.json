@@ -1,0 +1,24 @@
+{
+  "name": "checkyoself",
+  "version": "1.0.0",
+  "description": "This is the final solo project of Module 1 at the Turing School of Software & Design. CheckYoSelf is a project that focuses on continuing to develop the skills of writing semantic HTML, clean & organized CSS, and DRY JavaScript. This project contains DOM manipulation, a data model, and client-side data persistence using localStorage.",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-google": "^0.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwindelbosque/CheckYoSelf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwindelbosque/CheckYoSelf/issues"
+  },
+  "homepage": "https://github.com/edwindelbosque/CheckYoSelf#readme"
+}
