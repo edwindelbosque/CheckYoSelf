@@ -1,18 +1,18 @@
 :root {
-  --aside-border: #3B6577;
-  --background-blue: #1F1F3D;
-  --background-card-area: #F3F6F7;
+  --aside-border: #eeeeee;
+  --background-blue: #1f4b7b;
+  --background-card-area: #ededed;
   --background-card: #F9FDFF;
-  --background-green: #587A8A;
+  --background-green: var(--aside-border);
   --card-border: #C7D3D8;
   --card-text: #3C6577;
   --hover-title: #FF6A59;
-  --label: #BDCBD1;
-  --urgent-active: #B23A25;
+  --label: rgb(42, 88, 107);
+  --urgent-active: #2a577e;
   --urgent-background: #FFE89D;
   --urgent-border-active: #FFC30C;
-  --filter-border: #782616;
-  --urgent-button: #EF4A23;
+  --filter-border: #794213;
+  --urgent-button: #3a6c98;
 }
 
 * {
@@ -23,7 +23,7 @@
 
 body {
   background-color: var(--background-green);
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Lato', sans-serif;
   height: 100vh;
 }
 
@@ -44,19 +44,24 @@ nav {
   background-color: var(--background-blue);
   display: flex;
   justify-content: space-between;
-  height: 75px;
+  height: 50px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+  z-index: 30;
+  border-bottom: 1px solid rgb(40, 85, 113);
+  position: relative;
 }
 
 h1 {
   color: white;
   font-size: 38px;
-  font-weight: 800;
+  font-weight: 400;
   margin-left: 20px;
+  transition: .15s;
 }
 
 h1:hover {
-  color: var(--hover-title);
-  transition: 0.25s;
+  color: rgb(255, 231, 153);
+  transition: 0.15s;
 }
 
 h1 span {
@@ -67,13 +72,13 @@ nav form {
   display: flex;
   margin-right: 28px;
   width: 350px;
-  height: 50px;
+  height: 35px;
 }
 
 nav img {
-  background-color: var(--label);
-  height: 50px;
-  padding: 9px 0;
+  background-color: rgba(255, 255, 255, 0.269);
+  height: 35px;
+  padding: 5px 0;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -99,10 +104,10 @@ main {
 /* SIDEBAR section */
 
 aside {
-  background-color: var(--background-green);
+  background-color: rgb(211, 211, 211);;
   height: auto;
-  width: 45%;
-  border-right: solid 2px var(--aside-border);
+  width: 35%;
+  border-right: solid 1px rgb(205, 205, 205);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,8 +119,8 @@ aside {
   align-items: center;
   display: flex;
   flex-direction: column;
-  border-bottom: solid 2px var(--aside-border);
   width: 100%;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.075);
 }
 
 label {
@@ -137,46 +142,53 @@ aside form {
   color: white;
   font-size: 22px;
   font-weight: bold;
-  height: 50px;
+  height: 45px;
   width: 100%;
   border: 0;
   border-radius: 3px;
   margin-top: 0px;
+  margin: auto;
   margin-bottom: 20px;
-  transition: 0.25s;
+  transition: 0.15s;
 }
 
 .aside__button:hover {
   background-color: var(--urgent-button);
-  transition: 0.25s;
-  border: solid 2px var(--filter-border);
+  transition: 0.15s;
 }
 
 .aside__button:active {
   background-color: var(--urgent-active);
-  transition: 0.25s;
-  border: solid 2px var(--filter-border);
+  transition: 0.15s;
 }
 
 .aside__button:disabled {
-  background-color: #525461;
-  transition: 0.25s;
+  background-color: #93939362;
+  color: rgba(255, 255, 255, 0.527);
+  transition: 0.15s;
   pointer-events: none;
-  border: 2px solid #3d3d3d;
 }
 
 aside input {
-  height: 50px;
+  height: 35px;
   width: 100%;
   font-size: 22px;
-  padding-left: 10px;
-  border: solid 2px var(--background-blue);
-  border-radius: 3px;
-  color: var(--background-blue);
+  padding-left: 5px;
+  border: none;
+  background: rgba(255, 255, 255, 0);
+  border-bottom: solid 2px var(--background-blue);
+  color: rgb(46, 46, 46);
+  border-radius: 5px 5px 0 0;
+  transition: .2s ease-in-out;
+}
+
+aside input:hover {
+  background: rgba(89, 107, 123, 0.137);
+  transition: .2s ease-in-out;
 }
 
 input::placeholder {
-  color: lightgray;
+  color: rgb(165, 165, 165);
 }
 
 .aside__div {
@@ -184,50 +196,41 @@ input::placeholder {
   margin-bottom: 30px;
 }
 
-.aside__div input {
-  border-radius: 0;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
 .aside__div button {
   width: 60px;
-  height: 50px;
-  background-color: var(--background-blue);
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0);
   border: 0;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  border-top: solid 2px var(--background-blue);
-  border-right: solid 2px var(--background-blue);
+  transition: 0.15s ease-in-out;
   border-bottom: solid 2px var(--background-blue);
 }
 
 .aside__div button:hover {
-  background-color: var(--urgent-button);
-  transition: 0.25s;
+  color: rgb(61, 100, 159);
+  transition: 0.15s ease-in-out;
 }
 
 .aside__div button:active {
-  background-color: var(--urgent-active);
-  transition: 0.25s;
+  color: rgb(46, 93, 150);
+  transition: 0.15s ease-in-out;
 }
 
 .aside__div__button {
-  width: 50px;
-  height: 50px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  font-size: 50px;
-  color: white;
+  width: 30px;
+  height: 32px;
+  font-size: 45px;
   font-weight: 400;
+  color: var(--background-blue);
   padding-bottom: 0;
   line-height: 0.6;
-  transition: 0.25s;
+  transition: 0.15s ease-in-out;
+  border-radius: 5px 5px 0 0;
 }
 
 .aside__div__button:disabled {
-  background-color: #525461;
-  transition: 0.25s;
+  background-color: #93939301;
+  color: rgba(255, 255, 255, 0);
+  transition: 0.15s;
   pointer-events: none;
 }
 
@@ -258,8 +261,9 @@ aside p {
 }
 
 #button-create:disabled {
-	background-color: #525461;
-	transition: 0.25s;
+  background-color: #93939362;
+  color: rgba(255, 255, 255, 0.527);
+	transition: 0.15s;
 	pointer-events: none;
 }
 
@@ -277,9 +281,18 @@ aside p {
 }
 
 .aside__button--orange {
-  background-color: var(--urgent-button);
-  transition: 0.25s;
-  border: solid 2px var(--filter-border);
+  background-color: rgb(79, 144, 201);
+  transition: 0.15s;
+}
+
+.aside__button--orange:hover {
+  background-color: rgb(107, 172, 228);
+  transition: 0.15s;
+}
+
+.aside__button--orange:active {
+  background-color: rgb(79, 144, 201);
+  transition: 0.15s;
 }
 
 /* CARD AREA section */
@@ -287,32 +300,34 @@ aside p {
 .card__area {
   background-color: var(--background-card-area);
   column-gap: 1.5rem;
-  column-width: 19em;
+  column-width: 21em;
   padding: 30px;
   width: 100%;
 }
 
 .article__card--yellow {
   background: var(--urgent-background);
-  border: 2px solid var(--urgent-border-active);
+  border: 1px solid var(--urgent-border-active);
   display: inline-block;
   margin-bottom: 1.75rem;
+  transition: .15s;
   width: 100%;
 }
 
 article {
   background: var(--background-card);
-  border: 2px solid var(--card-border);
   display: inline-block;
+  border: 1px solid #C7D3D8;
   margin-bottom: 1.75rem;
   width: 100%;
-  box-shadow: 0 0 12px #d8d8d8;
+  box-shadow: 0 2px 4px #00000046;
   border-radius: 3px;
+  transition: .15s;
 }
 
 article:hover {
-  box-shadow: 0 0 25px #cecece;
-  transition: 0.25s;
+  box-shadow: 0 4px 10px #0000002f;
+  transition: 0.15s;
 }
 
 header {
@@ -333,18 +348,6 @@ h2 {
   height: 33px;
   border-radius: 4px;
   border: 2px dashed #00000000;
-}
-
-h2:hover {
-  background-color: #7e7e7e13;
-  border: dashed 2px var(--card-border);
-  transition: 0.25s;
-}
-
-h2:focus {
-  background-color: #00000000;
-  border: dashed 2px var(--card-border);
-  transition: 0.25s;
 }
 
 .card__main {
@@ -383,9 +386,9 @@ article p {
 }
 
 .card__text--blue {
-  font-style: italic;
-  color: var(--aside-border);
+  color: rgb(31, 80, 139);
   text-decoration: line-through;
+  transition: .15s;
 }
 
 .card__img--check {
@@ -404,7 +407,7 @@ footer {
   height: 70px;
   width: 90%;
   margin: 0 auto;
-  color: var(--aside-border);
+  color: rgb(89, 111, 113);
 }
 
 footer button {
@@ -430,11 +433,15 @@ footer img {
 
 footer p {
   text-align: center;
-  color: var(--urgent-active)
+  color: black;
 }
 
 .card__urgent--img {
   content:url("images/urgent-active.svg");
+}
+
+.button-urgent {
+  color: black;
 }
 
 .card__delete--img:hover {
@@ -454,6 +461,10 @@ footer p {
     flex-direction: column;
     height: 130px;
     justify-content: space-evenly;
+  }
+
+  aside ul img:hover {
+    content: none;
   }
   
   nav form {
@@ -494,10 +505,9 @@ footer p {
   }
   
   aside input {
-    height: 60px;
+    height: 40px;
+    padding-left: 8px;
     font-size: 25px;
-    border-radius: 12px;
-    border: solid 3px;
   }
   
   input::placeholder {
@@ -518,9 +528,8 @@ footer p {
   }
   
   .aside__button {
-    height: 60px;
+    height: 55px;
     font-size: 25px;
-    border-radius: 12px;
   }
 
   .aside__button:hover {
@@ -528,29 +537,10 @@ footer p {
     border: 0;
   }
 
-  .aside__button:disabled {
-    border: solid 3px #3d3d3d;
-  }
-
-  .aside__div input {
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-  }
-
   .aside__div button {
-    height: 60px;
+    height: 40px;
     width: 70px;
-    font-size: 60px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    border-top: 3px solid #1F1F3D;
-    border-right: 3px solid #1F1F3D;
-    border-bottom: 3px solid #1F1F3D;
-  }
-  
-  .aside__div button:hover {
-    background-color: var(--background-blue);
-    border-color: var(--background-blue);
+    font-size: 45px;
   }
 
   #prioritize {
@@ -578,22 +568,8 @@ footer p {
     height: 53px; 
     font-size: 32px;
     width: 100%;
-    border: dashed 3px #00000000;
     border-radius: 8px;
-    transition: 0.25s;
-  }
-
-  h2:hover {
-    background-color: #7e7e7e00;
-    border: dashed 3px #7e7e7e00;
-    border-radius: 8px;
-  }
-
-  h2:focus {
-    background-color: #00000000;
-    border: dashed 3px var(--card-border);
-    transition: 0.25s;
-    border-radius: 8px;
+    transition: 0.15s;
   }
   
   article ul {
@@ -616,6 +592,10 @@ footer p {
 
   footer img {
     height: 42px;
+  }
+
+  .card__delete--img:hover {
+    content: none;
   }
 
   h6 {

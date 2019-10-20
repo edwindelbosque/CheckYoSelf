@@ -154,7 +154,7 @@ function displayCards(toDoList) {
 	<article 
 		identifier="${toDoList.id}" ${toDoList.urgent ? 'class="article__card--yellow"' : ''} >
 		<header>
-			<h2 contenteditable>${toDoList.title}</h2>
+			<h2>${toDoList.title}</h2>
 		</header>
 		<section class="card__main ${toDoList.urgent ? 'card__border--yellow' : ''}" id="main-content">
 			<ul>${pushTasksToDom(toDoList)}</ul >
