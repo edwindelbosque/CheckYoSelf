@@ -57,15 +57,11 @@ h1 {
   font-weight: 400;
   margin-left: 20px;
   transition: .15s;
-}
-
-h1:hover {
-  color: rgb(255, 231, 153);
-  transition: 0.15s;
+  cursor: default;
 }
 
 h1 span {
-  color: #FEC30C;
+  color: rgb(255, 208, 68);
 }
 
 nav form {
@@ -144,11 +140,10 @@ aside form {
   font-weight: bold;
   height: 45px;
   width: 100%;
+  cursor: pointer;
   border: 0;
   border-radius: 3px;
-  margin-top: 0px;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   transition: 0.15s;
 }
 
@@ -187,6 +182,11 @@ aside input:hover {
   transition: .2s ease-in-out;
 }
 
+aside input:focus {
+  background: rgba(89, 107, 123, 0.137);
+  transition: .2s ease-in-out;
+}
+
 input::placeholder {
   color: rgb(165, 165, 165);
 }
@@ -220,6 +220,7 @@ input::placeholder {
   height: 32px;
   font-size: 45px;
   font-weight: 400;
+  cursor: pointer;
   color: var(--background-blue);
   padding-bottom: 0;
   line-height: 0.6;
@@ -236,11 +237,15 @@ input::placeholder {
 
 aside ul {
   margin: 20px auto 0 auto;
+  background-color: rgba(0, 0, 0, 0.105);
+  /* padding: 4px 0 11px 0; */
+  border-radius: 5px;
 }
 
 aside ul img {
   margin-right: 6px;
   margin-top: 4px;
+  cursor: pointer;
 }
 
 aside ul img:hover {
@@ -249,6 +254,7 @@ aside ul img:hover {
 
 aside li {
   margin-top: 5px;
+  margin-bottom: 8px;
   padding: 3px 0 0 10px;
   display: flex;
 }
@@ -393,9 +399,11 @@ article p {
 
 .card__img--check {
   content: url("images/checkbox-active.svg");
+  cursor: pointer;
 } 
 
 article li img {
+  cursor: pointer;
   margin: 11px 5px 0 15px;
   height: 23px;
 }
@@ -429,6 +437,7 @@ footer button {
 footer img {
   height: 30px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 footer p {
@@ -453,7 +462,7 @@ footer p {
   /* HEADER section */
 
   h1 {
-    font-size: 40px;
+    font-size: 55px;
     margin: 0;
   }
   
@@ -470,21 +479,17 @@ footer p {
   nav form {
     margin: 0;
     width: 90%;
-    height: 55px;
+    height: 40px;
   }
   
   nav img {
-    height: 55px;
-    padding: 14px 0;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    height: 40px;
+    padding: 6px 0;
   }
   
   nav input {
-    height: 55px;
+    height: 40px;
     font-size: 25px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
   }
 
   /* MAIN section */
