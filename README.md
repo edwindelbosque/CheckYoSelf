@@ -1,4 +1,4 @@
-# CheckYoSelf
+# ~~CheckYoSelf~~ => Noted.
 
 ## Summary
 CheckYoSelf is an to-do list web application. Additionally, you can prioritize cards to mark them as important, and check off individual tasks off the card. Once you have created all of your to-do lists, you will be able to filter the displaying cards by importance. The search bar will also allow you search the title of your cards to find exactly what you're looking for.
